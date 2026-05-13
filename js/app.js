@@ -1,6 +1,6 @@
-import { CELLS, COMPARISON_DATA } from './cell-data.js';
-import { SceneManager } from './scene.js';
-import UIManager from './ui.js';
+import { CELLS, COMPARISON_DATA } from './cell-data.js?v=2';
+import { SceneManager } from './scene.js?v=2';
+import UIManager from './ui.js?v=2';
 
 class App {
   constructor() {

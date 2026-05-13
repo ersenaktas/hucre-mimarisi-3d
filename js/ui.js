@@ -1,4 +1,4 @@
-import { COMPARISON_DATA } from './cell-data.js';
+import { COMPARISON_DATA } from './cell-data.js?v=2';
 
 class UIManager {
   constructor(app) {
