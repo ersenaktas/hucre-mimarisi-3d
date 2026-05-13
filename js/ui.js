@@ -1,4 +1,4 @@
-import { COMPARISON_DATA } from './cell-data.js?v=2';
+import { COMPARISON_DATA } from './cell-data.js?v=3';
 
 class UIManager {
   constructor(app) {
@@ -106,8 +106,7 @@ class UIManager {
       const item = document.createElement('div');
       item.className = `cell-item ${this.app.currentCell?.id === cell.id ? 'active' : ''}`;
       item.innerHTML = `
-        <div class="cell-icon"><i class="fas fa-bullseye" style="color: var(--accent-purple); font-size: 1.4rem;"></i></div>
-        <div class="cell-info">
+        <div class="cell-info" style="padding-left: 5px;">
           <strong>${cell.name}</strong>
           <span>${cell.subtitle}</span>
         </div>

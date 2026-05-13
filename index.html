@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hücre Mimarisi Stüdyosu</title>
-    <link rel="stylesheet" href="css/style.css?v=2">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="importmap">
     {
@@ -27,8 +27,8 @@
 
     <header class="app-header">
         <div class="logo">
-            <div class="logo-img" style="background: var(--accent-green); color: white; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-microscope"></i>
+            <div class="logo-img" style="background: var(--accent-green); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">
+                H
             </div>
             <div class="logo-text">
                 <h1>Hücre Mimarisi Stüdyosu</h1>
@@ -41,7 +41,7 @@
         <aside class="sidebar left-sidebar">
             <section class="panel cell-types-panel">
                 <div class="panel-header accordion-toggle" style="cursor: pointer;">
-                    <h2><i class="fas fa-dna"></i> HÜCRE TÜRLERİ</h2>
+                    <h2>HÜCRE TÜRLERİ</h2>
                     <i class="fas fa-chevron-down icon-toggle"></i>
                 </div>
                 <div id="cell-list" class="list-container"></div>
@@ -49,7 +49,7 @@
 
             <section class="panel organelles-panel">
                 <div class="panel-header accordion-toggle" style="cursor: pointer;">
-                    <h2><i class="fas fa-plus"></i> ORGANELLER</h2>
+                    <h2>ORGANELLER</h2>
                     <i class="fas fa-chevron-down icon-toggle"></i>
                 </div>
                 <div id="organelle-list" class="list-container"></div>
@@ -104,7 +104,6 @@
             <section class="panel details-panel">
                 <div class="panel-header">
                     <h2>ORGANEL DETAYLARI</h2>
-                    <i class="fas fa-heart"></i>
                 </div>
                 <div id="details-content" class="details-body">
                     <div class="empty-state">Lütfen bir organel seçin.</div>
@@ -114,7 +113,6 @@
             <section class="panel notes-panel">
                 <div class="panel-header">
                     <h2>BİYOLOJİK NOTLAR</h2>
-                    <i class="fas fa-feather-alt"></i>
                 </div>
                 <div id="notes-content" class="notes-body">
                     <p class="placeholder-text">Seçilen organelin bilgileri burada görünecektir.</p>
@@ -123,15 +121,15 @@
 
             <section class="panel compare-panel">
                 <div class="panel-header">
-                    <h2><i class="fas fa-balance-scale"></i> KARŞILAŞTIRMA</h2>
+                    <h2>KARŞILAŞTIRMA</h2>
                 </div>
                 <button class="open-compare-btn" id="btn-compare" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--accent-purple); color: white; border: none; cursor: pointer; font-weight: bold;">
-                    Karşılaştırma Modunu Aç <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i>
+                    Karşılaştırma Modunu Aç
                 </button>
             </section>
         </aside>
     </main>
 
-    <script type="module" src="js/app.js?v=2"></script>
+    <script type="module" src="js/app.js?v=3"></script>
 </body>
 </html>
