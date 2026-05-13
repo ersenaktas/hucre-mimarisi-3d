@@ -185,10 +185,9 @@ class UIManager {
     const color = '#' + org.color.toString(16).padStart(6, '0');
     
     this.detailsContent.innerHTML = `
-      <div class="detail-header">
-        <div class="cell-icon" style="background: ${color}; color: white;">${this.getOrganelleEmoji(org.id)}</div>
+      <div class="detail-header" style="padding-left: 0;">
         <div class="detail-info">
-          <strong>${org.name}</strong>
+          <strong style="color: ${color}; font-size: 1.1rem; display: block; margin-bottom: 5px;">${org.name}</strong>
           <p>Hücrenin ${this.getOrganelleTagline(org.id)}</p>
         </div>
       </div>
