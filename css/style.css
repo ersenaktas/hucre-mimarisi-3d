@@ -474,10 +474,40 @@ h1, h2, h3 {
 input:checked + .slider { background-color: var(--accent-purple); }
 input:checked + .slider:before { transform: translateX(20px); }
 
-/* MOBILE RESPONSIVE - HIDDEN FOR NOW */
+/* MOBILE RESPONSIVE - FIXED */
 @media (max-width: 1024px) {
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
+    body {
+        overflow-y: auto;
+        height: auto;
+    }
+    .main-layout { 
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto 60vh auto;
+        gap: 15px;
+        padding-bottom: 30px;
+    }
+    .content-area {
+        height: 60vh;
+        min-height: 400px;
+        order: -1; /* 3D modeli en üste alır */
+    }
+    .sidebar { 
+        display: flex; 
+        overflow-y: visible;
+        padding: 0 10px;
+    }
+    .left-sidebar {
+        order: 1; /* Hücre türleri ortaya */
+    }
+    .right-sidebar {
+        order: 2; /* Bilgiler en alta */
+    }
+    .app-header {
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* LOADING OVERLAY */
