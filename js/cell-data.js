@@ -46,7 +46,6 @@ export const CELLS = [
     id: 'bitkihucre',
     name: 'Bitki Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    emoji: '🌿',
     modelFile: 'hucreler.glb',
     organelles: [
       { id: 'bit-ceperi', name: 'Hücre Çeperi', color: COLORS.PLANT_WALL, description: 'Hücrenin en dışındaki koruyucu, sert tabakadır.', funFact: 'Selüloz yapısı sayesinde bitkiyi dış etkenlere karşı korur.', patterns: ['bitki_hucre_ceperi', 'ceperi', 'wall'] },
@@ -70,7 +69,6 @@ export const CELLS = [
     id: 'hayvanhucre',
     name: 'Hayvan Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    emoji: '🧬',
     modelFile: 'hucreler.glb',
     organelles: [
       { id: 'hay-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, opacity: 0.2, description: 'Hücreyi dış ortamdan ayıran seçici geçirgen zardır.', funFact: 'Çift katlı fosfolipit tabakasından oluşur.', patterns: ['hay__zar', 'cell_membrane'] },
@@ -92,7 +90,6 @@ export const CELLS = [
     id: 'bakterihucre',
     name: 'Bakteri Hücresi',
     subtitle: 'Prokaryotik Hücre',
-    emoji: '🦠',
     modelFile: 'hucreler.glb',
     organelles: [
       { id: 'bak-kapsul', name: 'Kapsül / Hücre Duvarı', color: COLORS.BACT_CAPSULE, description: 'Bakteriyi koruyan ve şekil veren dış yapı.', funFact: 'Hastalık yapıcı bakterilerde kalındır.', patterns: ['bakteri_dis'] },

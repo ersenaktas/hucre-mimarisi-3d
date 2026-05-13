@@ -106,7 +106,7 @@ class UIManager {
       const item = document.createElement('div');
       item.className = `cell-item ${this.app.currentCell?.id === cell.id ? 'active' : ''}`;
       item.innerHTML = `
-        <div class="cell-icon">${cell.emoji || '🧬'}</div>
+        <div class="cell-icon"><i class="fas fa-bullseye" style="color: var(--accent-purple); font-size: 1.4rem;"></i></div>
         <div class="cell-info">
           <strong>${cell.name}</strong>
           <span>${cell.subtitle}</span>
