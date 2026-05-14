@@ -111,15 +111,30 @@ export const COMPARISON_DATA = {
       { feature: 'Hücre Boyutu', prokaryot: '1-10 µm', okaryot: '10-100 µm', icon: '📏' }
     ]
   },
-  bitki_hayvan: {
-    title: 'Bitki ve Hayvan Hücresi Karşılaştırması',
-    features: [
-      { feature: 'Hücre Çeperi', bitki: 'Var (Selüloz)', hayvan: 'Yok', icon: '🧱' },
-      { feature: 'Plastitler', bitki: 'Var (Kloroplast vb.)', hayvan: 'Yok', icon: '🍃' },
-      { feature: 'Koful Yapısı', bitki: 'Büyük ve az sayıda', hayvan: 'Küçük ve çok sayıda', icon: '💧' },
-      { feature: 'Sentrozom', bitki: 'Yok (Genellikle)', hayvan: 'Var', icon: '✳️' },
-      { feature: 'Şekil', bitki: 'Köşeli', hayvan: 'Yuvarlak/Düzensiz', icon: '📐' }
-    ]
+  }
+};
+
+export const GROUP_DETAILS = {
+  'Çekirdek': {
+    id: 'group-cekirdek',
+    name: 'Çekirdek (Nucleus)',
+    description: 'Hücrenin genetik bilgisini (DNA) taşıyan ve tüm yaşamsal faaliyetleri bir komuta merkezi gibi yöneten yapıdır.',
+    funFact: 'Hücrenin beyni olarak kabul edilir ve protein sentezi için gerekli emirleri buradan gönderir.',
+    color: 0x6c5ce7
+  },
+  'Mitokondri': {
+    id: 'group-mitokondri',
+    name: 'Mitokondri',
+    description: 'Hücrenin enerji santralidir. Oksijen kullanarak besinlerden ATP (enerji) üretir.',
+    funFact: 'Kendi DNA\'larına sahip oldukları için hücre içinde bağımsız olarak bölünüp çoğalabilirler!',
+    color: 0x9b59b6
+  },
+  'Kloroplast': {
+    id: 'group-kloroplast',
+    name: 'Kloroplast',
+    description: 'Sadece bitki hücrelerinde bulunur. Güneş enerjisini kullanarak fotosentez yoluyla besin ve oksijen üretir.',
+    funFact: 'Bitkilere yeşil rengini veren klorofil pigmentini içinde barındırır.',
+    color: 0x43a047
   }
 };
 

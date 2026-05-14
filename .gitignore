@@ -1,2 +1,5 @@
 kaynak_dosyalar/
 node_modules/
+
+# Local Netlify folder
+.netlify

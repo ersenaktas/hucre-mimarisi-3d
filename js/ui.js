@@ -1,4 +1,4 @@
-import { COMPARISON_DATA } from './cell-data.js?v=3';
+import { COMPARISON_DATA, GROUP_DETAILS } from './cell-data.js?v=4';
 
 class UIManager {
   constructor(app) {
@@ -138,7 +138,7 @@ class UIManager {
   createGroupContainer(groupName) {
     const wrapper = document.createElement('div');
     wrapper.className = 'organelle-group-wrapper';
-    wrapper.dataset.group = groupName;
+    wrapper.dataset.groupName = groupName;
 
     const header = document.createElement('div');
     header.className = 'organelle-group-header';
@@ -157,6 +157,15 @@ class UIManager {
       header.classList.toggle('open', !isOpen);
       header.querySelector('.group-icon').classList.toggle('fa-chevron-down', !isOpen);
       header.querySelector('.group-icon').classList.toggle('fa-chevron-right', isOpen);
+      
+      // Grup bilgisi gelsin
+      if (GROUP_DETAILS[groupName]) {
+        document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
+        header.classList.add('active');
+        this.showOrganelleDetails(GROUP_DETAILS[groupName]);
+        // Gruba tıklandığında altındaki hiçbir parça seçili olmasın başlangıçta (temiz görünüm)
+        document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
+      }
     };
 
     wrapper.appendChild(header);
@@ -181,6 +190,7 @@ class UIManager {
     item.onclick = (e) => {
       e.stopPropagation();
       document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
       item.classList.add('active');
       this.app.selectOrganelle(org.id);
     };
@@ -190,20 +200,19 @@ class UIManager {
 
   setActiveOrganelle(orgId) {
     document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
+    
     if (!orgId) return;
     
     const activeItem = this.organelleList.querySelector(`.organelle-item[data-id="${orgId}"]`);
     if (activeItem) {
       activeItem.classList.add('active');
       
-      // Eğer bu öğe bir grubun içindeyse, grubu otomatik aç
       const groupContent = activeItem.closest('.organelle-group-content');
       if (groupContent && groupContent.style.display === 'none') {
         const header = groupContent.previousElementSibling;
-        header.click(); // Grubu aç
+        header.click();
       }
-      
-      // Scroll to view
       activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
@@ -212,7 +221,6 @@ class UIManager {
     if (this.cellNameDisplay) this.cellNameDisplay.textContent = cell.name;
     if (this.cellSubtitleDisplay) this.cellSubtitleDisplay.textContent = cell.subtitle;
     
-    // Nerede bulunur kısmını güncelle
     if (this.occCaption) {
         if (cell.id.includes('bitki')) {
             this.occCaption.textContent = "Tüm yeşil bitkilerin yaprak ve gövdelerinde bulunur.";
