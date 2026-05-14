@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { matchOrganelle } from './cell-data.js';
 
@@ -85,9 +86,16 @@ export class SceneManager {
   }
 
   _initEnvironment() {
-    // GitHub'daki parlamayı durdurmak için stüdyo ortamını tamamen kapatıyoruz.
-    // Bu sayede modeller yereldeki gibi mat ve temiz görünecek.
-    this.scene.environment = null;
+    // Local ve GitHub farkını çözmek için her iki tarafta da environment.hdr dosyasını kullanıyoruz.
+    const rgbeLoader = new RGBELoader();
+    rgbeLoader.load('environment.hdr', (texture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      this.scene.environment = texture;
+      // İsteğe bağlı: Arka planı da HDR yapmak isterseniz:
+      // this.scene.background = texture;
+    }, undefined, (err) => {
+      console.warn("HDR dosyası yüklenemedi, standart ışıklar devrede.", err);
+    });
   }
 
   _initControls() {
@@ -282,31 +290,13 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Yansımaları tamamen kapatarak "mat" görünüm sağlıyoruz
-            child.material.envMapIntensity = 0;
-            child.material.roughness = Math.max(child.material.roughness, 0.7);
-            child.material.metalness = 0;
-            
-            if (child.material.emissive) {
-                child.material.emissive.setHex(0x000000);
-                child.material.emissiveIntensity = 0;
-            }
-            
+            // Materyalleri tamamen orijinal (GLB'den geldiği gibi) bırakıyoruz.
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 0;
-            child.material.roughness = Math.max(child.material.roughness, 0.7);
-            child.material.metalness = 0;
-            
-            if (child.material.emissive) {
-                child.material.emissive.setHex(0x000000);
-                child.material.emissiveIntensity = 0;
-            }
-            
             this.originalMaterials.set(child, child.material.clone());
           }
         }
