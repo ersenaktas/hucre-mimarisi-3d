@@ -290,13 +290,32 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Materyalleri tamamen orijinal (GLB'den geldiği gibi) bırakıyoruz.
+            // Local-GitHub farkını kökten çözmek için:
+            // GLB içindeki hatalı metalik ve parlak ayarları kodla matlaştırıyoruz.
+            // Bu sayede yereldeki o beğendiğiniz 'mat' görüntü GitHub'da da sabitlenecek.
+            child.material.metalness = 0;
+            child.material.roughness = 0.8;
+            child.material.envMapIntensity = 0;
+            
+            if (child.material.emissive) {
+                child.material.emissive.setHex(0x000000);
+                child.material.emissiveIntensity = 0;
+            }
+            
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
+            child.material.metalness = 0;
+            child.material.roughness = 0.8;
+            child.material.envMapIntensity = 0;
+            
+            if (child.material.emissive) {
+                child.material.emissive.setHex(0x000000);
+                child.material.emissiveIntensity = 0;
+            }
             this.originalMaterials.set(child, child.material.clone());
           }
         }
