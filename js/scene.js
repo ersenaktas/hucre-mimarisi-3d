@@ -66,33 +66,33 @@ export class SceneManager {
   }
 
   _initLights() {
-    // Ortam ışığı çok kısıldı ki gölgeler simsiyah/derin çıksın
-    const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+    // 1. Ortam Işığı (Genel aydınlık)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
     this.scene.add(ambient);
-
-    // Ana Işık (Key Light) - Gücü dengelendi
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    keyLight.position.set(15, 20, 15);
+    
+    // 2. Dolgu Işığı (HemisphereLight) - Gökyüzü ve yer dengesi (Patlamayı engeller)
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    this.scene.add(hemiLight);
+    
+    // 3. Ana Işık (Key Light) - Vurgu ve Gölgeler
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    keyLight.position.set(10, 20, 10);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 2048;
     keyLight.shadow.mapSize.height = 2048;
     keyLight.shadow.bias = -0.0001;
     this.scene.add(keyLight);
-
-    // Dolgu Işığı (Fill Light) - Çok zayıf, sadece zifiri karanlığı alsın diye
+    
+    // 4. Zayıf Arka Işık
     const fillLight = new THREE.DirectionalLight(0xe0eaff, 0.3); 
-    fillLight.position.set(-15, 5, -15);
+    fillLight.position.set(-10, 5, -10);
     this.scene.add(fillLight);
   }
 
   _initEnvironment() {
-    try {
-      const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-      pmremGenerator.compileEquirectangularShader();
-      this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
-    } catch (e) {
-      console.warn("Dahili stüdyo ortamı oluşturulamadı, standart ışıklar kullanılacak.", e);
-    }
+    // Parlamaya neden olan RoomEnvironment devre dışı bırakıldı.
+    // Artık sadece doğrudan ışıklar kullanılacak.
+    this.scene.environment = null;
   }
 
   _initControls() {
@@ -287,16 +287,15 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Aşırı parlamayı önlemek için yansıma şiddetini makul bir seviyeye çekiyoruz
-            child.material.envMapIntensity = 0.5;
+            // Yansıma parlamasını tamamen kapatıyoruz (Mat ve temiz görünüm)
+            child.material.envMapIntensity = 0;
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
-          // Eşleşmeyen parçalar da aynı yansıma ayarıyla görünsün
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 0.5;
+            child.material.envMapIntensity = 0;
             this.originalMaterials.set(child, child.material.clone());
           }
         }
