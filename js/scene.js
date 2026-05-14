@@ -70,8 +70,8 @@ export class SceneManager {
     const ambient = new THREE.AmbientLight(0xffffff, 0.2);
     this.scene.add(ambient);
 
-    // Ana Işık (Key Light) - Yumuşatıldı
-    const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    // Ana Işık (Key Light)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
     keyLight.position.set(15, 20, 15);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 2048;
@@ -79,16 +79,25 @@ export class SceneManager {
     keyLight.shadow.bias = -0.0001;
     this.scene.add(keyLight);
 
-    // Dolgu Işığı (Fill Light) - Çok zayıf, sadece zifiri karanlığı alsın diye
-    const fillLight = new THREE.DirectionalLight(0xe0eaff, 0.3); 
+    // Dolgu Işığı (HemisphereLight) - Doğal gökyüzü/yer ışığı (Daha yumuşak görünüm)
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    this.scene.add(hemiLight);
+
+    // Zayıf Arka Işık
+    const fillLight = new THREE.DirectionalLight(0xe0eaff, 0.2); 
     fillLight.position.set(-15, 5, -15);
     this.scene.add(fillLight);
   }
 
   _initEnvironment() {
-    // Aşırı parlamayı (glare) önlemek için dahili stüdyo ortamını devre dışı bırakıyoruz.
-    // Bu sayede kullanıcının GLB'deki orijinal materyal renkleri tam olarak görünür.
-    this.scene.environment = null;
+    try {
+      const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+      pmremGenerator.compileEquirectangularShader();
+      // RoomEnvironment'ı geri getiriyoruz ama sadece çok hafif bir derinlik vermesi için
+      this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+    } catch (e) {
+      console.warn("Ortam oluşturulamadı.");
+    }
   }
 
   _initControls() {
@@ -283,16 +292,15 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Aşırı parlamayı önlemek için yansıma şiddetini makul bir seviyeye çekiyoruz
-            child.material.envMapIntensity = 0.5;
+            // Yansıma şiddetini ÇOK DÜŞÜK (0.1) tutarak sadece hacim hissi veriyoruz
+            child.material.envMapIntensity = 0.1;
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
-          // Eşleşmeyen parçalar da aynı yansıma ayarıyla görünsün
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 0.5;
+            child.material.envMapIntensity = 0.1;
             this.originalMaterials.set(child, child.material.clone());
           }
         }
@@ -335,7 +343,20 @@ export class SceneManager {
   }
 
   _clearScene() {
-    if (this.currentModel) this.scene.remove(this.currentModel);
+    // Sahnede hücre modeline dair her şeyi (Group ve Mesh'leri) tamamen temizle
+    const toRemove = [];
+    this.scene.children.forEach(child => {
+        if (child.isGroup || child.isMesh || child.type === 'Object3D') {
+            // Işıkları ve kamerayı koru
+            if (child.type !== 'DirectionalLight' && child.type !== 'AmbientLight' && child.type !== 'HemisphereLight' && child.type !== 'PerspectiveCamera') {
+                toRemove.push(child);
+            }
+        }
+    });
+    toRemove.forEach(obj => this.scene.remove(obj));
+    
+    this.currentModel = null;
+    this.organelleGroups = {};
   }
 
   selectOrganelle(organelleId) {
