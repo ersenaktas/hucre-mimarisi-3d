@@ -110,7 +110,6 @@ export const COMPARISON_DATA = {
       { feature: 'Ribozom', prokaryot: '70S', okaryot: '80S', icon: '⚙️' },
       { feature: 'Hücre Boyutu', prokaryot: '1-10 µm', okaryot: '10-100 µm', icon: '📏' }
     ]
-  },
   }
 };
 
