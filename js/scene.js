@@ -281,15 +281,19 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // web3dtest gibi aydınlanmayı yansımalardan (IBL) alması için intensity'i 1.0 yapıyoruz
-            child.material.envMapIntensity = 1.0;
+            // Biyolojik doku görünümü için: Düşük yansıma, yüksek pürüzlülük, sıfır metalik
+            child.material.envMapIntensity = 0.3;
+            child.material.roughness = Math.max(child.material.roughness, 0.7);
+            child.material.metalness = 0;
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 1.0;
+            child.material.envMapIntensity = 0.3;
+            child.material.roughness = Math.max(child.material.roughness, 0.7);
+            child.material.metalness = 0;
             this.originalMaterials.set(child, child.material.clone());
           }
         }
