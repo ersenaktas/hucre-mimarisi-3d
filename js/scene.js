@@ -271,25 +271,7 @@ export class SceneManager {
           return;
         }
 
-        // Hiyerarşik arama: Bu parça doğru hücre grubunun altında mı?
-        let belongsToCurrentCell = false;
-        let p = child;
-        while (p && p !== model) {
-          const pName = (p.name || '').toLowerCase();
-          if (filterKey && pName.includes(filterKey)) {
-            belongsToCurrentCell = true;
-            break;
-          }
-          p = p.parent;
-        }
-
-        // Eğer bakteri gibi tekli bir modelse veya filtre anahtarı yoksa hepsini kabul et
-        if (!filterKey) belongsToCurrentCell = true;
-
-        if (!belongsToCurrentCell) {
-          child.visible = false;
-          return;
-        }
+        // Modeller ayrıldığı için tüm parçalar mevcut hücreye aittir.
 
         // Tam hiyerarşi adını alarak eşleştir (Örn: "hayvan_hucre Hay_cekridek_er Mesh001")
         const fullName = this._getFullName(child);
@@ -300,20 +282,21 @@ export class SceneManager {
           if (!this.organelleGroups[org.id]) this.organelleGroups[org.id] = [];
           this.organelleGroups[org.id].push(child);
 
-          // PREMIUM MATERYAL MOTORU ÇAĞRISI
-          const mat = this._createPremiumMaterial(org);
-          
-          child.material = mat;
+          // Kullanıcının GLB dosyasında hazırladığı orijinal materyali koru
           child.castShadow = true;
           child.receiveShadow = true;
-          this.originalMaterials.set(child, mat.clone());
+          
+          if (child.material) {
+            this.originalMaterials.set(child, child.material.clone());
+          }
         } else {
-          // Tanınmayan parçaları silikleştir
-          child.material = new THREE.MeshStandardMaterial({
-            color: 0xcccccc,
-            transparent: true,
-            opacity: 0.1
-          });
+          // Eşleşmeyen parçalar da GLB'deki orijinal haliyle görünsün, 
+          // sadece tıklanabilir organel gruplarına dahil edilmez.
+          child.castShadow = true;
+          child.receiveShadow = true;
+          if (child.material) {
+            this.originalMaterials.set(child, child.material.clone());
+          }
         }
       }
     });
@@ -364,6 +347,7 @@ export class SceneManager {
     if (meshes) {
       meshes.forEach(m => {
         if (m.material.emissive) {
+          // Vurgulama için hafif bir parlama ekle
           m.material.emissive.setHex(0x333333);
           m.material.emissiveIntensity = 0.5;
         }
@@ -373,7 +357,11 @@ export class SceneManager {
 
   deselectOrganelle() {
     Object.values(this.organelleGroups).flat().forEach(m => {
-      if (m.material.emissive) {
+      const origMat = this.originalMaterials.get(m);
+      if (m.material.emissive && origMat && origMat.emissive) {
+        m.material.emissive.copy(origMat.emissive);
+        m.material.emissiveIntensity = origMat.emissiveIntensity !== undefined ? origMat.emissiveIntensity : 0;
+      } else if (m.material.emissive) {
         m.material.emissive.setHex(0x000000);
         m.material.emissiveIntensity = 0;
       }
@@ -396,7 +384,14 @@ export class SceneManager {
     Object.keys(this.organelleGroups).forEach(id => {
       const isSelected = id === this.selectedOrganelleId;
       this.organelleGroups[id].forEach(m => {
-        m.material.opacity = (this.hideOthersActive && !isSelected) ? 0.1 : (this.currentCellData.organelles.find(o => o.id === id).opacity || 1.0);
+        const origMat = this.originalMaterials.get(m);
+        if (this.hideOthersActive && !isSelected) {
+            m.material.transparent = true;
+            m.material.opacity = 0.1;
+        } else {
+            m.material.transparent = origMat ? origMat.transparent : false;
+            m.material.opacity = origMat ? origMat.opacity : 1.0;
+        }
       });
     });
     return this.hideOthersActive;

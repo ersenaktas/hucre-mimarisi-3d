@@ -46,7 +46,7 @@ export const CELLS = [
     id: 'bitkihucre',
     name: 'Bitki Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    modelFile: 'hucreler.glb',
+    modelFile: 'optimized_bitki.glb',
     organelles: [
       { id: 'bit-ceperi', name: 'Hücre Çeperi', color: COLORS.PLANT_WALL, description: 'Hücrenin en dışındaki koruyucu, sert tabakadır.', funFact: 'Selüloz yapısı sayesinde bitkiyi dış etkenlere karşı korur.', patterns: ['bitki_hucre_ceperi', 'ceperi', 'wall'] },
       { id: 'bit-zar', name: 'Hücre Zarı', color: COLORS.PLANT_MEM, description: 'Hücrenin seçici geçirgen sınırıdır.', funFact: 'Madde giriş çıkışını kontrol eden canlı bir yapıdır.', patterns: ['bitki_hucre_zari', 'hucre_zari', 'membrane'] },
@@ -69,7 +69,7 @@ export const CELLS = [
     id: 'hayvanhucre',
     name: 'Hayvan Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    modelFile: 'hucreler.glb',
+    modelFile: 'optimized_hayvan.glb',
     organelles: [
       { id: 'hay-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, opacity: 0.2, description: 'Hücreyi dış ortamdan ayıran seçici geçirgen zardır.', funFact: 'Çift katlı fosfolipit tabakasından oluşur.', patterns: ['hay__zar', 'cell_membrane'] },
       { id: 'hay-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Organellerin içinde bulunduğu jel benzeri sıvıdır.', funFact: 'Hücre hacminin büyük bir kısmını kaplar.', patterns: ['hay_sitop', 'cytoplasm'] },
@@ -90,7 +90,7 @@ export const CELLS = [
     id: 'bakterihucre',
     name: 'Bakteri Hücresi',
     subtitle: 'Prokaryotik Hücre',
-    modelFile: 'hucreler.glb',
+    modelFile: 'optimized_bakteri.glb',
     organelles: [
       { id: 'bak-kapsul', name: 'Kapsül / Hücre Duvarı', color: COLORS.BACT_CAPSULE, description: 'Bakteriyi koruyan ve şekil veren dış yapı.', funFact: 'Hastalık yapıcı bakterilerde kalındır.', patterns: ['bakteri_dis'] },
       { id: 'bak-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Tüm yaşamsal olayların gerçekleştiği berrak iç sıvı.', funFact: 'Bakterilerin zarlı organeli olmadığı için tepkimeler doğrudan burada gerçekleşir.', patterns: ['bakteri_sitolazma', 'sitolazma', 'sitoplazma'] },
