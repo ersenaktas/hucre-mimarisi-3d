@@ -285,6 +285,13 @@ export class SceneManager {
             child.material.envMapIntensity = 0.3;
             child.material.roughness = Math.max(child.material.roughness, 0.7);
             child.material.metalness = 0;
+            
+            // Kendi içinden yayılan (emissive) ışığı söndürerek parlamayı engelliyoruz
+            if (child.material.emissive) {
+                child.material.emissive.setHex(0x000000);
+                child.material.emissiveIntensity = 0;
+            }
+            
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
@@ -294,6 +301,12 @@ export class SceneManager {
             child.material.envMapIntensity = 0.3;
             child.material.roughness = Math.max(child.material.roughness, 0.7);
             child.material.metalness = 0;
+            
+            if (child.material.emissive) {
+                child.material.emissive.setHex(0x000000);
+                child.material.emissiveIntensity = 0;
+            }
+            
             this.originalMaterials.set(child, child.material.clone());
           }
         }
