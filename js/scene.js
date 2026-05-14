@@ -70,8 +70,8 @@ export class SceneManager {
     const ambient = new THREE.AmbientLight(0xffffff, 0.2);
     this.scene.add(ambient);
 
-    // Ana Işık (Key Light) - Sol üstten vuran güçlü ışık (Blender'daki gibi)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    // Ana Işık (Key Light) - Gücü dengelendi
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
     keyLight.position.set(15, 20, 15);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 2048;
@@ -287,14 +287,16 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
+            // Aşırı parlamayı önlemek için yansıma şiddetini makul bir seviyeye çekiyoruz
+            child.material.envMapIntensity = 0.5;
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
-          // Eşleşmeyen parçalar da GLB'deki orijinal haliyle görünsün, 
-          // sadece tıklanabilir organel gruplarına dahil edilmez.
+          // Eşleşmeyen parçalar da aynı yansıma ayarıyla görünsün
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
+            child.material.envMapIntensity = 0.5;
             this.originalMaterials.set(child, child.material.clone());
           }
         }
