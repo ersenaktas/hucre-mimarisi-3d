@@ -66,27 +66,28 @@ export class SceneManager {
   }
 
   _initLights() {
-    // web3dtest gibi sadece IBL ağırlıklı aydınlatma kullanıyoruz.
-    // Çok zayıf bir ortam ışığı her ihtimale karşı (gölgeleri tamamen siyah yapmamak için)
-    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    // Yereldeki gibi temiz ve mat bir görüntü için sadece doğrudan ışıklar kullanıyoruz.
+    
+    // 1. Genel Aydınlık (Yumuşak dolgu)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambient);
-
-    // Diğer sert DirectionalLight'lar parlamaya neden olduğu için kaldırıldı.
+    
+    // 2. Gökyüzü Işığı (Derinlik ve renk dengesi için)
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
+    this.scene.add(hemiLight);
+    
+    // 3. Ana Işık (Sadece hafif gölge ve form belirginliği için)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    keyLight.position.set(5, 10, 7.5);
+    keyLight.castShadow = true;
+    keyLight.shadow.bias = -0.0001;
+    this.scene.add(keyLight);
   }
 
   _initEnvironment() {
-    try {
-      const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-      pmremGenerator.compileEquirectangularShader();
-      
-      // web3dtest projesindeki 0.04 değeri ile yumuşatılmış stüdyo ortamı
-      const env = new RoomEnvironment();
-      this.scene.environment = pmremGenerator.fromScene(env, 0.04).texture;
-      
-      // Çevresel yansıma şiddeti (Sizin materyallerinizde varsayılan 1.0 olabilir)
-    } catch (e) {
-      console.warn("Ortam aydınlatması oluşturulamadı:", e);
-    }
+    // GitHub'daki parlamayı durdurmak için stüdyo ortamını tamamen kapatıyoruz.
+    // Bu sayede modeller yereldeki gibi mat ve temiz görünecek.
+    this.scene.environment = null;
   }
 
   _initControls() {
@@ -281,12 +282,11 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Biyolojik doku görünümü için: Düşük yansıma, yüksek pürüzlülük, sıfır metalik
-            child.material.envMapIntensity = 0.3;
+            // Yansımaları tamamen kapatarak "mat" görünüm sağlıyoruz
+            child.material.envMapIntensity = 0;
             child.material.roughness = Math.max(child.material.roughness, 0.7);
             child.material.metalness = 0;
             
-            // Kendi içinden yayılan (emissive) ışığı söndürerek parlamayı engelliyoruz
             if (child.material.emissive) {
                 child.material.emissive.setHex(0x000000);
                 child.material.emissiveIntensity = 0;
@@ -298,7 +298,7 @@ export class SceneManager {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 0.3;
+            child.material.envMapIntensity = 0;
             child.material.roughness = Math.max(child.material.roughness, 0.7);
             child.material.metalness = 0;
             
