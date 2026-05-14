@@ -120,39 +120,92 @@ class UIManager {
     if (!this.organelleList) return;
     this.organelleList.innerHTML = '';
 
+    const groups = {};
+
     organelles.forEach(org => {
-      const item = document.createElement('div');
-      item.className = `organelle-item ${this.app.selectedOrganelleId === org.id ? 'active' : ''}`;
-      const color = '#' + org.color.toString(16).padStart(6, '0');
-      
-      item.innerHTML = `
-        <div class="organelle-dot" style="background: ${color}"></div>
-        <div class="organelle-info">
-          <span>${org.name}</span>
-        </div>
-      `;
-      
-      item.onclick = () => {
-        // Eski aktifi temizle, yeniyi işaretle
-        document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
-        item.classList.add('active');
-        this.app.selectOrganelle(org.id);
-      };
-      this.organelleList.appendChild(item);
+      if (org.group) {
+        if (!groups[org.group]) {
+          groups[org.group] = this.createGroupContainer(org.group);
+          this.organelleList.appendChild(groups[org.group].wrapper);
+        }
+        groups[org.group].content.appendChild(this.createOrganelleItem(org, true));
+      } else {
+        this.organelleList.appendChild(this.createOrganelleItem(org, false));
+      }
     });
+  }
+
+  createGroupContainer(groupName) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'organelle-group-wrapper';
+    wrapper.dataset.group = groupName;
+
+    const header = document.createElement('div');
+    header.className = 'organelle-group-header';
+    header.innerHTML = `
+      <span>${groupName}</span>
+      <i class="fas fa-chevron-right group-icon"></i>
+    `;
+
+    const content = document.createElement('div');
+    content.className = 'organelle-group-content';
+    content.style.display = 'none';
+
+    header.onclick = () => {
+      const isOpen = content.style.display !== 'none';
+      content.style.display = isOpen ? 'none' : 'block';
+      header.classList.toggle('open', !isOpen);
+      header.querySelector('.group-icon').classList.toggle('fa-chevron-down', !isOpen);
+      header.querySelector('.group-icon').classList.toggle('fa-chevron-right', isOpen);
+    };
+
+    wrapper.appendChild(header);
+    wrapper.appendChild(content);
+
+    return { wrapper, content, header };
+  }
+
+  createOrganelleItem(org, isNested) {
+    const item = document.createElement('div');
+    item.className = `organelle-item ${isNested ? 'nested' : ''}`;
+    item.dataset.id = org.id;
+    
+    const color = '#' + org.color.toString(16).padStart(6, '0');
+    item.innerHTML = `
+      <div class="organelle-dot" style="background: ${color}"></div>
+      <div class="organelle-info">
+        <span>${org.name}</span>
+      </div>
+    `;
+
+    item.onclick = (e) => {
+      e.stopPropagation();
+      document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+      this.app.selectOrganelle(org.id);
+    };
+
+    return item;
   }
 
   setActiveOrganelle(orgId) {
     document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
     if (!orgId) return;
     
-    // İsme veya ID'ye göre bulup işaretle (Daha sağlam yöntem)
-    const items = this.organelleList.querySelectorAll('.organelle-item');
-    items.forEach(item => {
-        if (item.textContent.trim().includes(orgId)) { // Basit eşleştirme
-            item.classList.add('active');
-        }
-    });
+    const activeItem = this.organelleList.querySelector(`.organelle-item[data-id="${orgId}"]`);
+    if (activeItem) {
+      activeItem.classList.add('active');
+      
+      // Eğer bu öğe bir grubun içindeyse, grubu otomatik aç
+      const groupContent = activeItem.closest('.organelle-group-content');
+      if (groupContent && groupContent.style.display === 'none') {
+        const header = groupContent.previousElementSibling;
+        header.click(); // Grubu aç
+      }
+      
+      // Scroll to view
+      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 
   updateCellHeader(cell) {
