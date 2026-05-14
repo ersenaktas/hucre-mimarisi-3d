@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && copy optimized_*.glb dist\\ && copy environment.hdr dist\\",
     "preview": "vite preview"
   },
   "keywords": [],
