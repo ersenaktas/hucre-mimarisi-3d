@@ -66,33 +66,27 @@ export class SceneManager {
   }
 
   _initLights() {
-    // 1. Ortam Işığı (Genel aydınlık)
-    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    // web3dtest gibi sadece IBL ağırlıklı aydınlatma kullanıyoruz.
+    // Çok zayıf bir ortam ışığı her ihtimale karşı (gölgeleri tamamen siyah yapmamak için)
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
     this.scene.add(ambient);
-    
-    // 2. Dolgu Işığı (HemisphereLight) - Gökyüzü ve yer dengesi (Patlamayı engeller)
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
-    this.scene.add(hemiLight);
-    
-    // 3. Ana Işık (Key Light) - Vurgu ve Gölgeler
-    const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    keyLight.position.set(10, 20, 10);
-    keyLight.castShadow = true;
-    keyLight.shadow.mapSize.width = 2048;
-    keyLight.shadow.mapSize.height = 2048;
-    keyLight.shadow.bias = -0.0001;
-    this.scene.add(keyLight);
-    
-    // 4. Zayıf Arka Işık
-    const fillLight = new THREE.DirectionalLight(0xe0eaff, 0.3); 
-    fillLight.position.set(-10, 5, -10);
-    this.scene.add(fillLight);
+
+    // Diğer sert DirectionalLight'lar parlamaya neden olduğu için kaldırıldı.
   }
 
   _initEnvironment() {
-    // Parlamaya neden olan RoomEnvironment devre dışı bırakıldı.
-    // Artık sadece doğrudan ışıklar kullanılacak.
-    this.scene.environment = null;
+    try {
+      const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+      pmremGenerator.compileEquirectangularShader();
+      
+      // web3dtest projesindeki 0.04 değeri ile yumuşatılmış stüdyo ortamı
+      const env = new RoomEnvironment();
+      this.scene.environment = pmremGenerator.fromScene(env, 0.04).texture;
+      
+      // Çevresel yansıma şiddeti (Sizin materyallerinizde varsayılan 1.0 olabilir)
+    } catch (e) {
+      console.warn("Ortam aydınlatması oluşturulamadı:", e);
+    }
   }
 
   _initControls() {
@@ -287,15 +281,15 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Yansıma parlamasını tamamen kapatıyoruz (Mat ve temiz görünüm)
-            child.material.envMapIntensity = 0;
+            // web3dtest gibi aydınlanmayı yansımalardan (IBL) alması için intensity'i 1.0 yapıyoruz
+            child.material.envMapIntensity = 1.0;
             this.originalMaterials.set(child, child.material.clone());
           }
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
           if (child.material) {
-            child.material.envMapIntensity = 0;
+            child.material.envMapIntensity = 1.0;
             this.originalMaterials.set(child, child.material.clone());
           }
         }
