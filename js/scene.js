@@ -70,8 +70,8 @@ export class SceneManager {
     const ambient = new THREE.AmbientLight(0xffffff, 0.2);
     this.scene.add(ambient);
 
-    // Ana Işık (Key Light) - Gücü dengelendi
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    // Ana Işık (Key Light) - Yumuşatıldı
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
     keyLight.position.set(15, 20, 15);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 2048;
@@ -86,13 +86,9 @@ export class SceneManager {
   }
 
   _initEnvironment() {
-    try {
-      const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
-      pmremGenerator.compileEquirectangularShader();
-      this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
-    } catch (e) {
-      console.warn("Dahili stüdyo ortamı oluşturulamadı, standart ışıklar kullanılacak.", e);
-    }
+    // Aşırı parlamayı (glare) önlemek için dahili stüdyo ortamını devre dışı bırakıyoruz.
+    // Bu sayede kullanıcının GLB'deki orijinal materyal renkleri tam olarak görünür.
+    this.scene.environment = null;
   }
 
   _initControls() {
