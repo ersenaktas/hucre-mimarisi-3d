@@ -160,11 +160,7 @@ class UIManager {
       
       // Grup bilgisi gelsin
       if (GROUP_DETAILS[groupName]) {
-        document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
-        header.classList.add('active');
-        this.showOrganelleDetails(GROUP_DETAILS[groupName]);
-        // Gruba tıklandığında altındaki hiçbir parça seçili olmasın başlangıçta (temiz görünüm)
-        document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
+        this.app.selectOrganelle(`group-${groupName}`);
       }
     };
 
@@ -189,10 +185,8 @@ class UIManager {
 
     item.onclick = (e) => {
       e.stopPropagation();
-      document.querySelectorAll('.organelle-item').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
-      item.classList.add('active');
-      this.app.selectOrganelle(org.id);
+      const effectiveId = org.group ? `group-${org.group}` : org.id;
+      this.app.selectOrganelle(effectiveId);
     };
 
     return item;
@@ -203,17 +197,36 @@ class UIManager {
     document.querySelectorAll('.organelle-group-header').forEach(h => h.classList.remove('active'));
     
     if (!orgId) return;
-    
-    const activeItem = this.organelleList.querySelector(`.organelle-item[data-id="${orgId}"]`);
-    if (activeItem) {
-      activeItem.classList.add('active');
-      
-      const groupContent = activeItem.closest('.organelle-group-content');
-      if (groupContent && groupContent.style.display === 'none') {
-        const header = groupContent.previousElementSibling;
-        header.click();
+
+    if (typeof orgId === 'string' && orgId.startsWith('group-')) {
+      const groupName = orgId.replace('group-', '');
+      const header = this.organelleList.querySelector(`.organelle-group-wrapper[data-group-name="${groupName}"] .organelle-group-header`);
+      if (header) {
+        header.classList.add('active');
+        // Manual expansion to avoid loops
+        const content = header.nextElementSibling;
+        if (content && content.style.display === 'none') {
+            content.style.display = 'block';
+            header.classList.add('open');
+            const icon = header.querySelector('.group-icon');
+            if(icon) {
+                icon.classList.replace('fa-chevron-right', 'fa-chevron-down');
+            }
+        }
+        header.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
-      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      const activeItem = this.organelleList.querySelector(`.organelle-item[data-id="${orgId}"]`);
+      if (activeItem) {
+        activeItem.classList.add('active');
+        
+        const groupContent = activeItem.closest('.organelle-group-content');
+        if (groupContent && groupContent.style.display === 'none') {
+          const header = groupContent.previousElementSibling;
+          header.click();
+        }
+        activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
   }
 

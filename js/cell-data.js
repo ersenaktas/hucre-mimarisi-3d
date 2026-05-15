@@ -46,7 +46,7 @@ export const CELLS = [
     id: 'bitkihucre',
     name: 'Bitki Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    modelFile: 'optimized_bitki.glb',
+    modelFile: 'optimized_bitki1.glb',
     organelles: [
       { id: 'bit-ceperi', name: 'Hücre Çeperi', color: COLORS.PLANT_WALL, description: 'Hücrenin en dışındaki koruyucu, sert tabakadır.', funFact: 'Selüloz yapısı sayesinde bitkiyi dış etkenlere karşı korur.', patterns: ['bitki_hucre_ceperi', 'ceperi', 'wall'] },
       { id: 'bit-zar', name: 'Hücre Zarı', color: COLORS.PLANT_MEM, description: 'Hücrenin seçici geçirgen sınırıdır.', funFact: 'Madde giriş çıkışını kontrol eden canlı bir yapıdır.', patterns: ['bitki_hucre_zari', 'hucre_zari', 'membrane'] },
@@ -54,14 +54,14 @@ export const CELLS = [
       { id: 'bit-cekirdekcik', name: 'Çekirdekçik', group: 'Çekirdek', color: COLORS.NUCLEOLUS, description: 'Ribozom sentezinin yapıldığı yerdir.', funFact: 'Çekirdeğin içinde bulunan yoğun bölgedir.', patterns: ['cekirdek1 cekirdekcik', 'bitki_cekirdekcik'] },
       { id: 'bit-kromatin', name: 'Kromatin / DNA', group: 'Çekirdek', color: COLORS.CHROMATIN, description: 'Genetik bilgiyi taşıyan ipliksi yapılardır.', funFact: 'Hücre bölünmesi sırasında kısalıp kalınlaşarak kromozomları oluşturur.', patterns: ['cekirdek1 kromatin', 'bitki_kromatin'] },
       { id: 'bit-nukleoplazma', name: 'Çekirdek Plazması', group: 'Çekirdek', color: COLORS.NUCLEOPLASM, opacity: 0.4, description: 'Çekirdek içindeki sıvı kısımdır.', funFact: 'Sitoplazmadan daha yoğun bir yapıdadır.', patterns: ['cekirdek_sitop', 'nukleoplazma'] },
-      { id: 'bit-kloroplast-dis', name: 'Kloroplast Dış Zar', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_OUT, opacity: 0.3, description: 'Fotosentez organelinin dış koruyucu zarıdır.', funFact: 'Güneş ışığını içeri alacak kadar incedir.', patterns: ['KloDis_zar', 'chloro_dis'] },
+      { id: 'bit-kloroplast-dis', name: 'Kloroplast Dış Zar', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_OUT, opacity: 0.3, description: 'Fotosentez organelinin dış koruyucu zarıdır.', funFact: 'Güneş ışığını içeri alacak kadar incedir.', patterns: ['klodis_zar', 'chloro_dis', 'kloroplast'] },
       { id: 'bit-kloroplast-ic', name: 'Kloroplast İç Zar ve Tilakoit', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_IN, description: 'Işığa bağımlı tepkimelerin gerçekleştiği tilakoit zarlarıdır.', funFact: 'Üst üste dizilerek "Grana" adı verilen yapıları oluştururlar.', patterns: ['tilakoid', 'ic_zar'] },
-      { id: 'bit-kloroplast-dna', name: 'Kloroplast DNA / Ribozom', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_DNA, description: 'Kloroplastın kendi üretimini yönetmesini sağlayan genetik yapıdır.', funFact: 'Kloroplastlar da mitokondriler gibi hücre içinde çoğalabilirler.', patterns: ['Klo_DNA', 'DNA_RNA2', 'all_cell_render_ribozom'] },
+      { id: 'bit-kloroplast-dna', name: 'Kloroplast DNA / Ribozom', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_DNA, description: 'Kloroplastın kendi üretimini yönetmesini sağlayan genetik yapıdır.', funFact: 'Kloroplastlar da mitokondriler gibi hücre içinde çoğalabilirler.', patterns: ['klo_dna', 'dna_rna2', 'ribozom'] },
       { id: 'bit-koful', name: 'Merkezi Koful', color: COLORS.PLANT_VACUOLE, opacity: 0.3, description: 'Bitki hücresinde su ve atık depolayan büyük yapıdır.', funFact: 'Turgor basıncı oluşturarak bitkinin dik durmasını sağlar.', patterns: ['koful_2', 'koful', 'vacuole'] },
       { id: 'bit-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Hücre içi madde iletim kanallarıdır.', funFact: 'Çekirdekten aldığı maddeleri ilgili yerlere taşır.', patterns: ['bitkier', 'retikulum'] },
-      { id: 'bit-mito-dis', name: 'Mitokondri Dış Zar', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Mitokondriyi çevreleyen koruyucu dış zardır.', funFact: 'Peynir dilimi gibi gözenekli bir yapısı vardır.', patterns: ['mitokondri_1 dis_zar2', 'dis_zar2'] },
-      { id: 'bit-mito-ic', name: 'Mitokondri İç Zar (Krista)', group: 'Mitokondri', color: COLORS.MITO_INNER, opacity: 0.4, description: 'Enerji üretiminin (ATP) yapıldığı kıvrımlı iç zardır.', funFact: 'Kıvrımlı olması yüzey alanını artırarak daha fazla enerji üretilmesini sağlar.', patterns: ['mitokondri_1 ic_zar1', 'ic_zar1'] },
-      { id: 'bit-mito-dna', name: 'Mitokondri DNA ve Ribozom', group: 'Mitokondri', color: COLORS.MITO_DNA, description: 'Mitokondrinin kendine ait genetik materyali ve protein sentez birimleridir.', funFact: 'Mitokondriler hücre içinde bağımsız olarak çoğalabilirler.', patterns: ['DNA_RNA1', 'mito_iplik', 'mito_ribo1'] },
+      { id: 'bit-mito-dis', name: 'Mitokondri Dış Zar', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Mitokondriyi çevreleyen koruyucu dış zardır.', funFact: 'Peynir dilimi gibi gözenekli bir yapısı vardır.', patterns: ['dis_zar2', 'mitokondri'] },
+      { id: 'bit-mito-ic', name: 'Mitokondri İç Zar (Krista)', group: 'Mitokondri', color: COLORS.MITO_INNER, opacity: 0.4, description: 'Enerji üretiminin (ATP) yapıldığı kıvrımlı iç zardır.', funFact: 'Kıvrımlı olması yüzey alanını artırarak daha fazla enerji üretilmesini sağlar.', patterns: ['ic_zar1'] },
+      { id: 'bit-mito-dna', name: 'Mitokondri DNA ve Ribozom', group: 'Mitokondri', color: COLORS.MITO_DNA, description: 'Mitokondrinin kendine ait genetik materyali ve protein sentez birimleridir.', funFact: 'Mitokondriler hücre içinde bağımsız olarak çoğalabilirler.', patterns: ['dna_rna1', 'mito_iplik', 'mito_ribo1'] },
       { id: 'bit-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein üretim tesisidir.', funFact: 'Hücredeki en küçük ve zarsız organeldir.', patterns: ['ribozom'] }
     ]
   },

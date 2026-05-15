@@ -1,4 +1,4 @@
-import { CELLS, COMPARISON_DATA } from './cell-data.js?v=3';
+import { CELLS, COMPARISON_DATA, GROUP_DETAILS } from './cell-data.js?v=4';
 import { SceneManager } from './scene.js?v=3';
 import UIManager from './ui.js?v=3';
 
@@ -96,10 +96,13 @@ class App {
   }
 
   _onOrganelleClicked(organelleId) {
-    if (this.selectedOrganelleId === organelleId) {
+    const orgData = this.currentCell.organelles.find(o => o.id === organelleId);
+    const effectiveId = (orgData && orgData.group) ? `group-${orgData.group}` : organelleId;
+
+    if (this.selectedOrganelleId === effectiveId) {
         this.deselectOrganelle();
     } else {
-        this.selectOrganelle(organelleId);
+        this.selectOrganelle(effectiveId);
     }
   }
 
@@ -107,8 +110,15 @@ class App {
     this.selectedOrganelleId = orgId;
     this.scene.selectOrganelle(orgId);
     
-    const orgData = this.currentCell.organelles.find(o => o.id === orgId);
-    this.ui.showOrganelleDetails(orgData);
+    if (typeof orgId === 'string' && orgId.startsWith('group-')) {
+      const groupName = orgId.replace('group-', '');
+      this.ui.showOrganelleDetails(GROUP_DETAILS[groupName]);
+    } else {
+      const orgData = this.currentCell.organelles.find(o => o.id === orgId);
+      this.ui.showOrganelleDetails(orgData);
+    }
+    
+    this.ui.setActiveOrganelle(orgId);
   }
 
   deselectOrganelle() {

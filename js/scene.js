@@ -21,6 +21,7 @@ export class SceneManager {
     this.currentCellData = null;
     this.currentModel = null;
     this.organelleGroups = {};
+    this.organelleToGroup = {}; // Maps organelle ID to its group name
     this.originalMaterials = new Map();
     this.isolateActive = false;
     this.hideOthersActive = false;
@@ -280,8 +281,14 @@ export class SceneManager {
         
         if (org) {
           child.userData.organelleId = org.id;
+          child.userData.group = org.group; // Store group in userData
+          
           if (!this.organelleGroups[org.id]) this.organelleGroups[org.id] = [];
           this.organelleGroups[org.id].push(child);
+
+          if (org.group) {
+            this.organelleToGroup[org.id] = org.group;
+          }
 
           // Kullanıcının GLB dosyasında hazırladığı orijinal materyali koru
           child.castShadow = true;
@@ -343,8 +350,23 @@ export class SceneManager {
   selectOrganelle(organelleId) {
     this.deselectOrganelle();
     this.selectedOrganelleId = organelleId;
-    const meshes = this.organelleGroups[organelleId];
-    if (meshes) {
+
+    let meshes = [];
+    
+    // Check if it's a group ID (e.g. "group-Mitokondri")
+    if (typeof organelleId === 'string' && organelleId.startsWith('group-')) {
+      const groupName = organelleId.replace('group-', '');
+      // Collect all meshes that belong to this group
+      this.currentModel.traverse(node => {
+        if (node.isMesh && node.userData.group === groupName) {
+          meshes.push(node);
+        }
+      });
+    } else {
+      meshes = this.organelleGroups[organelleId] || [];
+    }
+
+    if (meshes.length > 0) {
       meshes.forEach(m => {
         if (m.material.emissive) {
           // Vurgulama için hafif bir parlama ekle
