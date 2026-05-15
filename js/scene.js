@@ -182,7 +182,7 @@ export class SceneManager {
     };
 
     // 1. CAM VE JELATİN TİPİ (Kofullar, Sitoplazma ve Şeffaf Zarlar)
-    if (name.includes('koful') || name.includes('sitoplazma') || name.includes('sitolazma') || name.includes('ic_zar') || name.includes('dis_zar') || name.includes('klodis')) {
+    if (name.includes('koful') || name.includes('sitoplazma') || name.includes('sitolazma') || name.includes('ic_zar') || name.includes('dis_zar') || name.includes('klodis') || (isTransparent && name.includes('zar'))) {
       params.roughness = 0.05;
       params.metalness = 0.0;
       params.transmission = 0.9; 

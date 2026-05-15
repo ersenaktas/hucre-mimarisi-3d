@@ -1,5 +1,6 @@
 /**
- * cell-data.js — Premium Render Görselleri İle Birebir Eşleşen Renk Paleti
+ * cell-data.js — v5
+ * Premium Render Görselleri İle Birebir Eşleşen Renk Paleti
  */
 
 const COLORS = {
