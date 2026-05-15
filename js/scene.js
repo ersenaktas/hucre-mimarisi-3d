@@ -295,8 +295,10 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Materyallere hiçbir müdahale etmiyoruz, orijinal ayarları koruyoruz.
-            this.originalMaterials.set(child, child.material.clone());
+            // Materyalleri Premium Fiziksel Materyal ile değiştir
+            const premiumMat = this._createPremiumMaterial(org);
+            this.originalMaterials.set(child, premiumMat);
+            child.material = premiumMat;
           }
         } else {
           child.castShadow = true;
