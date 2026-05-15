@@ -47,7 +47,7 @@ export const CELLS = [
     id: 'bitkihucre',
     name: 'Bitki Hücresi',
     subtitle: 'Ökaryotik Hücre',
-    modelFile: 'optimized_bitki1.glb',
+    modelFile: 'optimized_bitki_v1.glb',
     organelles: [
       { id: 'bit-ceperi', name: 'Hücre Çeperi', color: COLORS.PLANT_WALL, description: 'Hücrenin en dışındaki koruyucu, sert tabakadır.', funFact: 'Selüloz yapısı sayesinde bitkiyi dış etkenlere karşı korur.', patterns: ['bitki_hucre_ceperi', 'ceperi', 'wall'] },
       { id: 'bit-zar', name: 'Hücre Zarı', color: COLORS.PLANT_MEM, description: 'Hücrenin seçici geçirgen sınırıdır.', funFact: 'Madde giriş çıkışını kontrol eden canlı bir yapıdır.', patterns: ['bitki_hucre_zari', 'hucre_zari', 'membrane'] },
