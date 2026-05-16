@@ -57,7 +57,6 @@ export class SceneManager {
     this.renderer.setSize(width, height, false);
     
     // PREMIUM RENDER AYARLARI (Blender Eevee/Cycles Kalitesi)
-    this.renderer.useLegacyLights = false; 
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.0; // Patlamayı engellemek için 1.0'a çekildi
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
