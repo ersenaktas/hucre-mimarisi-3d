@@ -39,7 +39,11 @@ const COLORS = {
   BACT_RIBOSOME: 0xd32f2f,   // Ribozom: Kırmızı Noktalar
   
   // Eksik kalan ortak renk (Çökme sebebi)
-  RIBOSOME: 0x263238         // Antrasit (Bitki Ribozomu)
+  RIBOSOME: 0x263238,        // Antrasit (Bitki Ribozomu)
+  
+  // Mantar ve Sperm Özel Renkler
+  FUNGI_WALL: 0x8d6e63,      // Kitin Duvarı: Kahverengi ton
+  SPERM_TAIL: 0xbdc3c7       // Kamçı: Açık gri
 };
 
 export const CELLS = [
@@ -98,6 +102,34 @@ export const CELLS = [
       { id: 'bak-dna', name: 'Halkasal DNA', color: COLORS.BACT_DNA, description: 'Bakterinin bembeyaz genetik yumağı.', funFact: 'Çekirdeksiz olduğu için serbest yüzer.', patterns: ['bakteri_halkasal', 'bak_kromozom', 'halkasal', 'kromozom'] },
       { id: 'bak-ribozom', name: 'Ribozom', color: COLORS.BACT_RIBOSOME, description: 'Kırmızı nokta şeklindeki protein fabrikaları.', funFact: 'Bakterideki tek organeldir.', patterns: ['ibozom_gruplari', 'ibozom', 'ribozom'] }
     ]
+  },
+  {
+    id: 'mantarhucre',
+    name: 'Mantar Hücresi',
+    subtitle: 'Ökaryotik Hücre',
+    modelFile: 'optimized_fungi.glb',
+    organelles: [
+      { id: 'man-duvar', name: 'Hücre Duvarı (Kitin)', color: COLORS.FUNGI_WALL, description: 'Mantarları bitkilerden ayıran kitin yapılı dış duvardır.', funFact: 'Böceklerin dış iskeleti de aynı madde olan kitinden oluşur.', patterns: ['fungi_1', 'duvar', 'wall'] },
+      { id: 'man-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, description: 'Madde geçişini kontrol eder.', funFact: 'Bitki zarlarına benzer yapıdadır.', patterns: ['fungi_2', 'zar', 'membrane'] },
+      { id: 'man-cekirdek', name: 'Çekirdek', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Hücrenin genetik yönetim merkezidir.', funFact: 'Mantar hücreleri çoğunlukla birden fazla çekirdeğe sahip olabilir.', patterns: ['fungi_3', 'cekirdek', 'nucleus'] },
+      { id: 'man-mito', name: 'Mitokondri', group: 'Mitokondri', color: COLORS.MITO_OUTER, description: 'Oksijenli solunumla enerji üretir.', funFact: 'Mantarların enerjisi de buradan sağlanır.', patterns: ['fungi_4', 'mitokondri'] },
+      { id: 'man-koful', name: 'Koful', color: COLORS.PLANT_VACUOLE, opacity: 0.3, description: 'Madde depolama keseleridir.', funFact: 'Zamanla büyüyüp birleşebilirler.', patterns: ['fungi_5', 'koful', 'vacuole'] },
+      { id: 'man-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Madde taşıma ve paketleme ağıdır.', funFact: 'Hücre içi iletişimi sağlar.', patterns: ['fungi_6', 'retikulum', 'er'] },
+      { id: 'man-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Proteinlerin sentez noktası.', funFact: 'En küçük hücre yapı birimidir.', patterns: ['fungi'] }
+    ]
+  },
+  {
+    id: 'spermhucre',
+    name: 'Sperm Hücresi',
+    subtitle: 'Özelleşmiş Üreme Hücresi',
+    modelFile: 'optimized_sperm.glb',
+    organelles: [
+      { id: 'sp-akrozom', name: 'Akrozom', color: COLORS.ANIMAL_CENTRO, description: 'Spermin baş kısmında bulunan sindirim enzimleridir.', funFact: 'Yumurta zarını delmek için özel enzimler taşır.', patterns: ['sperm_1', 'akrozom', 'acrosome'] },
+      { id: 'sp-cekirdek', name: 'Çekirdek', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Babanın genetik mirasını taşır.', funFact: 'Normal hücrenin yarısı kadar (23 adet) kromozom içerir.', patterns: ['sperm_2', 'cekirdek', 'nucleus'] },
+      { id: 'sp-boyun', name: 'Mitokondri Kılıfı (Boyun)', group: 'Mitokondri', color: COLORS.MITO_INNER, description: 'Kamçının hareketi için gereken enerjiyi üretir.', funFact: 'Spiral şeklinde dizilmiş çok sayıda mitokondriden oluşur.', patterns: ['sperm_3', 'boyun', 'mito', 'midpiece'] },
+      { id: 'sp-kamci', name: 'Kamçı (Kuyruk)', color: COLORS.SPERM_TAIL, description: 'Spermin hedefine doğru yüzmesini sağlar.', funFact: 'Çok hızlı hareket edebilen mikrotübül yapılardır.', patterns: ['sperm_4', 'kamci', 'kuyruk', 'flagellum'] },
+      { id: 'sp-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, opacity: 0.2, description: 'Tüm sperm hücresini kaplar.', funFact: 'Oldukça esnektir.', patterns: ['sperm'] }
+    ]
   }
 ];
 
@@ -144,9 +176,11 @@ export function matchOrganelle(meshName, cellData) {
   
   const filterKey = (cellData.id.includes('hayvan') ? 'hayvan' : 
                     cellData.id.includes('bitki') ? 'bitki' : 
-                    cellData.id.includes('bakteri') ? 'bakteri' : '').toLowerCase();
+                    cellData.id.includes('bakteri') ? 'bakteri' : 
+                    cellData.id.includes('mantar') ? 'mantar' :
+                    cellData.id.includes('sperm') ? 'sperm' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
