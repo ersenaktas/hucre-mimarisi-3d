@@ -294,10 +294,16 @@ export class SceneManager {
           child.receiveShadow = true;
           
           if (child.material) {
-            // Materyalleri Premium Fiziksel Materyal ile değiştir
-            const premiumMat = this._createPremiumMaterial(org);
-            this.originalMaterials.set(child, premiumMat);
-            child.material = premiumMat;
+            // Kullanıcının modelinde gelen orijinal materyali belleğe alalım
+            this.originalMaterials.set(child, child.material.clone());
+            
+            // Eğer Bitki, Hayvan veya Bakteri ise (eski modeller) özel render materyali oluştur ve ez
+            // Mantar ve Sperm gibi kullanıcının özel materyallerini içeren modellerde bu adımı atla.
+            if (['bitkihucre', 'hayvanhucre', 'bakterihucre'].includes(cellData.id)) {
+                const premiumMat = this._createPremiumMaterial(org);
+                this.originalMaterials.set(child, premiumMat);
+                child.material = premiumMat;
+            }
           }
         } else {
           child.castShadow = true;
