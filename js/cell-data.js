@@ -41,9 +41,10 @@ const COLORS = {
   // Eksik kalan ortak renk (Çökme sebebi)
   RIBOSOME: 0x263238,        // Antrasit (Bitki Ribozomu)
   
-  // Mantar ve Sperm Özel Renkler
+  // Mantar, Sperm ve Alyuvar Özel Renkler
   FUNGI_WALL: 0x8d6e63,      // Kitin Duvarı: Kahverengi ton
-  SPERM_TAIL: 0xbdc3c7       // Kamçı: Açık gri
+  SPERM_TAIL: 0xbdc3c7,      // Kamçı: Açık gri
+  RED_BLOOD: 0xc0392b        // Alyuvar: Koyu Kırmızı
 };
 
 export const CELLS = [
@@ -130,6 +131,15 @@ export const CELLS = [
       { id: 'sp-kamci', name: 'Kamçı (Kuyruk)', color: COLORS.SPERM_TAIL, description: 'Spermin hedefine doğru yüzmesini sağlar.', funFact: 'Çok hızlı hareket edebilen mikrotübül yapılardır.', patterns: ['sperm_4', 'kamci', 'kuyruk', 'flagellum'] },
       { id: 'sp-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, opacity: 0.2, description: 'Tüm sperm hücresini kaplar.', funFact: 'Oldukça esnektir.', patterns: ['sperm'] }
     ]
+  },
+  {
+    id: 'alyuvarhucre',
+    name: 'Alyuvar (Eritrosit)',
+    subtitle: 'Oksijen Taşıyıcı Hücre',
+    modelFile: 'optimized_alyuvar.glb',
+    organelles: [
+      { id: 'al-hucre', name: 'Alyuvar (Eritrosit)', color: COLORS.RED_BLOOD, description: 'Kana kırmızı rengini veren ve vücutta oksijen taşıyan hücredir.', funFact: 'Olgunlaştıklarında çekirdeklerini ve diğer organellerini kaybederek daha fazla oksijen taşıma kapasitesine sahip olurlar.', patterns: ['alyuvar001', 'alyuvar'] }
+    ]
   }
 ];
 
@@ -178,9 +188,10 @@ export function matchOrganelle(meshName, cellData) {
                     cellData.id.includes('bitki') ? 'bitki' : 
                     cellData.id.includes('bakteri') ? 'bakteri' : 
                     cellData.id.includes('mantar') ? 'mantar' :
-                    cellData.id.includes('sperm') ? 'sperm' : '').toLowerCase();
+                    cellData.id.includes('sperm') ? 'sperm' :
+                    cellData.id.includes('alyuvar') ? 'alyuvar' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
