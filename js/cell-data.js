@@ -140,6 +140,27 @@ export const CELLS = [
     organelles: [
       { id: 'al-hucre', name: 'Alyuvar (Eritrosit)', color: COLORS.RED_BLOOD, description: 'Kana kırmızı rengini veren ve vücutta oksijen taşıyan hücredir.', funFact: 'Olgunlaştıklarında çekirdeklerini ve diğer organellerini kaybederek daha fazla oksijen taşıma kapasitesine sahip olurlar.', patterns: ['alyuvar001', 'alyuvar'] }
     ]
+  },
+  {
+    id: 'amiphucre',
+    name: 'Amip',
+    subtitle: 'Tek Hücreli Canlı',
+    modelFile: 'optimized_amip.glb',
+    organelles: [
+      { id: 'am-zar', name: 'Hücre Zarı (Yalancı Ayaklar)', color: COLORS.ANIMAL_CYTO, opacity: 0.3, description: 'Amibin şekil değiştirmesini ve hareket etmesini sağlayan esnek zardır.', funFact: 'Yalancı ayaklar (pseudopod) sayesinde hem hareket eder hem de besin yakalar.', patterns: ['amip1', 'amip'] },
+      { id: 'am-cekirdek-zari', name: 'Çekirdek Zarı', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Hücrenin genetik bilgisini korur.', funFact: 'Amip bölünerek çoğalırken önce çekirdeği ikiye ayrılır.', patterns: ['Amip_cekirdek_zari', 'Amip_cekirdek'] },
+      { id: 'am-cekirdekcik', name: 'Çekirdekçik', group: 'Çekirdek', color: COLORS.NUCLEOLUS, description: 'Ribozom sentezi burada gerçekleşir.', funFact: 'Çekirdeğin içinde yoğun bir yapıdır.', patterns: ['Amip_cekirdekcik'] },
+      { id: 'am-kromatin', name: 'Kromatin', group: 'Çekirdek', color: COLORS.CHROMATIN, description: 'DNA iplikçiklerinden oluşur.', funFact: 'Genetik bilgiyi taşır.', patterns: ['amip_Kromatin'] },
+      { id: 'am-nukleoplazma', name: 'Çekirdek Plazması', group: 'Çekirdek', color: COLORS.NUCLEOPLASM, opacity: 0.4, description: 'Çekirdeğin iç sıvısı.', funFact: 'Çekirdek içi reaksiyonların gerçekleştiği alandır.', patterns: ['Amip_Nukleoplazma', 'Amip_nukleus'] },
+      { id: 'am-kontra-koful', name: 'Kontraktil Koful', color: COLORS.ANIMAL_VACUOLE, opacity: 0.5, description: 'Hücre içindeki fazla suyu dışarı atar.', funFact: 'Tatlı suda yaşayan tek hücreliler için hayati öneme sahiptir, patlamayı önler.', patterns: ['kontraklit_koful'] },
+      { id: 'am-besin-kofulu', name: 'Besin Kofulu', color: COLORS.ANIMAL_LYSO, opacity: 0.6, description: 'Yalancı ayaklarla alınan besinlerin sindirildiği yerdir.', funFact: 'Lizozomlarla birleşerek sindirimi gerçekleştirir.', patterns: ['Besin_kofulu', 'Besin_parcasi'] },
+      { id: 'am-mito-dis', name: 'Mitokondri Dış Zar', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Mitokondriyi koruyan zardır.', funFact: 'Enerji santralinin dış duvarıdır.', patterns: ['Mitokondri_dis_zar', 'amip_mitokondri'] },
+      { id: 'am-mito-ic', name: 'Mitokondri İç Zar', group: 'Mitokondri', color: COLORS.MITO_INNER, opacity: 0.5, description: 'Kıvrımlı iç zar (krista).', funFact: 'ATP (enerji) burada üretilir.', patterns: ['Mitokondri_ic_zar'] },
+      { id: 'am-mito-dna', name: 'Mitokondri DNA', group: 'Mitokondri', color: COLORS.MITO_DNA, description: 'Mitokondrinin kendi genetik şifresi.', funFact: 'Hücre çekirdeğinden bağımsız olarak çoğalmasını sağlar.', patterns: ['Mitokondri_DNA', 'Mitokondri_Protein'] },
+      { id: 'am-golgi', name: 'Golgi Aygıtı', color: COLORS.ER_GOLGI, description: 'Salgı maddelerinin paketlendiği organeldir.', funFact: 'Sindirilen besinlerin atıklarını paketler.', patterns: ['Amip_golgi', 'Golgi'] },
+      { id: 'am-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Madde taşıma kanallarıdır.', funFact: 'Sitoplazma içinde madde iletimini sağlar.', patterns: ['Amip_ER', 'Amip_GER', 'Amip_RER'] },
+      { id: 'am-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein sentezleyen küçük yapılardır.', funFact: 'Hücredeki en küçük organeldir.', patterns: ['Amip_ribozom', 'Amip_Ribosomes', 'Ribozom_'] }
+    ]
   }
 ];
 
@@ -189,9 +210,10 @@ export function matchOrganelle(meshName, cellData) {
                     cellData.id.includes('bakteri') ? 'bakteri' : 
                     cellData.id.includes('mantar') ? 'mantar' :
                     cellData.id.includes('sperm') ? 'sperm' :
-                    cellData.id.includes('alyuvar') ? 'alyuvar' : '').toLowerCase();
+                    cellData.id.includes('alyuvar') ? 'alyuvar' :
+                    cellData.id.includes('amip') ? 'amip' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
