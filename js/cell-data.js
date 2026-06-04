@@ -160,7 +160,7 @@ export const CELLS = [
       { id: 'am-golgi', name: 'Golgi Aygıtı', color: COLORS.ER_GOLGI, description: 'Salgı maddelerinin paketlendiği organeldir.', funFact: 'Sindirilen besinlerin atıklarını paketler.', patterns: ['Amip_golgi', 'Golgi'] },
       { id: 'am-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Madde taşıma kanallarıdır.', funFact: 'Sitoplazma içinde madde iletimini sağlar.', patterns: ['Amip_ER', 'Amip_GER', 'Amip_RER'] },
       { id: 'am-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein sentezleyen küçük yapılardır.', funFact: 'Hücredeki en küçük organeldir.', patterns: ['Amip_ribozom', 'Amip_Ribosomes', 'Ribozom_'] }
-  }
+    ]
   },
   {
     id: 'oglenahucre',
