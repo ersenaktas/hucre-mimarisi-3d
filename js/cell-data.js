@@ -160,6 +160,29 @@ export const CELLS = [
       { id: 'am-golgi', name: 'Golgi Aygıtı', color: COLORS.ER_GOLGI, description: 'Salgı maddelerinin paketlendiği organeldir.', funFact: 'Sindirilen besinlerin atıklarını paketler.', patterns: ['Amip_golgi', 'Golgi'] },
       { id: 'am-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Madde taşıma kanallarıdır.', funFact: 'Sitoplazma içinde madde iletimini sağlar.', patterns: ['Amip_ER', 'Amip_GER', 'Amip_RER'] },
       { id: 'am-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein sentezleyen küçük yapılardır.', funFact: 'Hücredeki en küçük organeldir.', patterns: ['Amip_ribozom', 'Amip_Ribosomes', 'Ribozom_'] }
+  }
+  },
+  {
+    id: 'oglenahucre',
+    name: 'Öglena',
+    subtitle: 'Kamçılı Tek Hücreli',
+    modelFile: 'optimized_oglena.glb',
+    organelles: [
+      { id: 'og-pellikula', name: 'Pellikula (Hücre Zarı)', color: COLORS.ANIMAL_MEM, description: 'Öglenaya esneklik ve şekil veren protein yapılı kılıftır.', funFact: 'Hücre duvarı olmadığı için esnek hareket etmesini sağlar.', patterns: ['pellikula'] },
+      { id: 'og-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Organellerin bulunduğu yarı akışkan sıvıdır.', funFact: 'Yaşamsal olayların büyük bir kısmı burada gerçekleşir.', patterns: ['sitoplazma'] },
+      { id: 'og-kamci', name: 'Kamçı', color: COLORS.SPERM_TAIL, description: 'Öglenanın suda aktif olarak hareket etmesini sağlayan uzantıdır.', funFact: 'Işığa doğru yüzmesini sağlar.', patterns: ['kamci'] },
+      { id: 'og-stigma', name: 'Göz Lekesi (Stigma)', color: COLORS.RED_BLOOD, description: 'Işığa duyarlı kırmızı renkli pigment içerir.', funFact: 'Fotosentez yapabilmek için ışığın yönünü bulmasına yardımcı olur.', patterns: ['stigma'] },
+      { id: 'og-kloroplast', name: 'Kloroplast', group: 'Kloroplast', color: COLORS.PLANT_CHLORO_OUT, description: 'Fotosentez yaparak besin üretmesini sağlar.', funFact: 'Öglena hem ototrof (kendi besinini üreten) hem de heterotrof (dışarıdan beslenen) bir canlıdır.', patterns: ['kloroplast'] },
+      { id: 'og-cekirdek-zari', name: 'Çekirdek Zarı', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Hücrenin yönetim merkezini korur.', funFact: 'Öglena ökaryot olduğu için gerçek bir çekirdeğe sahiptir.', patterns: ['cekirdek_zarı', 'cekirdek'] },
+      { id: 'og-cekirdekcik', name: 'Çekirdekçik', group: 'Çekirdek', color: COLORS.NUCLEOLUS, description: 'Ribozomların sentezlendiği yerdir.', funFact: 'Çekirdek içindeki yoğun yapıdır.', patterns: ['cekirdekcik'] },
+      { id: 'og-kromatin', name: 'Kromatin', group: 'Çekirdek', color: COLORS.CHROMATIN, description: 'Genetik şifreyi taşıyan iplikçiklerdir.', funFact: 'DNA ve proteinlerden oluşur.', patterns: ['kromatin'] },
+      { id: 'og-nukleoplazma', name: 'Çekirdek Plazması', group: 'Çekirdek', color: COLORS.NUCLEOPLASM, opacity: 0.4, description: 'Çekirdeğin iç sıvısıdır.', funFact: 'Çekirdek içi faaliyetlerin gerçekleştiği alandır.', patterns: ['nukleoplazma'] },
+      { id: 'og-kontra-koful', name: 'Kontraktil Koful', color: COLORS.ANIMAL_VACUOLE, opacity: 0.5, description: 'Hücreye giren fazla suyu dışarı pompalar.', funFact: 'Tatlı suda yaşadığı için patlamasını önleyen en önemli organeldir.', patterns: ['kontraktil_koful'] },
+      { id: 'og-rezervuar', name: 'Rezervuar', color: COLORS.ANIMAL_VACUOLE, opacity: 0.3, description: 'Kamçının çıktığı kese şeklindeki yapıdır.', funFact: 'Besin alımında ve kontraktil kofulun boşaltımında rol alır.', patterns: ['rezervuar'] },
+      { id: 'og-mito', name: 'Mitokondri', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Hücrenin enerji (ATP) santralidir.', funFact: 'Kamçının hareketi için gereken enerjiyi üretir.', patterns: ['mitokondri'] },
+      { id: 'og-golgi', name: 'Golgi Aygıtı', color: COLORS.ER_GOLGI, description: 'Salgı maddelerinin paketlendiği yerdir.', funFact: 'Hücre zarının yenilenmesinde rol alır.', patterns: ['golgi'] },
+      { id: 'og-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Hücre içi madde taşıma kanallarıdır.', funFact: 'Çekirdek ve zar arası madde iletimini sağlar.', patterns: ['retikulum', 'amip_ger', 'amip_rer'] },
+      { id: 'og-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein sentezleyen yapılardır.', funFact: 'Hem sitoplazmada serbest hem de ER üzerinde bulunur.', patterns: ['ribozom', 'ribosomes'] }
     ]
   }
 ];
@@ -211,9 +234,10 @@ export function matchOrganelle(meshName, cellData) {
                     cellData.id.includes('mantar') ? 'mantar' :
                     cellData.id.includes('sperm') ? 'sperm' :
                     cellData.id.includes('alyuvar') ? 'alyuvar' :
-                    cellData.id.includes('amip') ? 'amip' : '').toLowerCase();
+                    cellData.id.includes('amip') ? 'amip' : 
+                    cellData.id.includes('oglena') ? 'oglena' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip', 'oglena'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
