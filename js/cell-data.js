@@ -184,6 +184,25 @@ export const CELLS = [
       { id: 'og-er', name: 'Endoplazmik Retikulum', color: COLORS.ER_GOLGI, description: 'Hücre içi madde taşıma kanallarıdır.', funFact: 'Çekirdek ve zar arası madde iletimini sağlar.', patterns: ['retikulum', 'amip_ger', 'amip_rer'] },
       { id: 'og-ribozom', name: 'Ribozom', color: COLORS.RIBOSOME, description: 'Protein sentezleyen yapılardır.', funFact: 'Hem sitoplazmada serbest hem de ER üzerinde bulunur.', patterns: ['ribozom', 'ribosomes'] }
     ]
+  },
+  {
+    id: 'parameciumhucre',
+    name: 'Paramesyum',
+    subtitle: 'Silli Tek Hücreli',
+    modelFile: 'optimized_paramecium.glb',
+    organelles: [
+      { id: 'para-pellikula', name: 'Pellikula', color: COLORS.ANIMAL_MEM, description: 'Hücreye şekil veren dayanıklı dış örtüdür.', funFact: 'Paramesyum bu sayede esnektir ama terlik şeklini korur.', patterns: ['pellikula'] },
+      { id: 'para-siller', name: 'Siller', color: COLORS.SPERM_TAIL, description: 'Hareket etmesini ve besinleri ağız bölgesine yönlendirmesini sağlar.', funFact: 'Sillerini kürek gibi kullanarak çok hızlı yüzebilir.', patterns: ['sil', 'siller', 'cilia'] },
+      { id: 'para-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Organellerin bulunduğu sıvıdır.', funFact: 'Ektoplazma ve endoplazma olarak iki kısımdan oluşur.', patterns: ['sitoplazma'] },
+      { id: 'para-makro', name: 'Büyük Çekirdek', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Metabolizmayı ve eşeysiz üremeyi yönetir.', funFact: 'Fasulye tanesine benzer.', patterns: ['makro_cekirdek', 'buyuk_cekirdek', 'makro'] },
+      { id: 'para-mikro', name: 'Küçük Çekirdek', group: 'Çekirdek', color: COLORS.NUCLEOLUS, description: 'Eşeyli üremede (konjugasyon) görev alır.', funFact: 'Büyük çekirdeğin yanındadır.', patterns: ['mikro_cekirdek', 'kucuk_cekirdek', 'mikro'] },
+      { id: 'para-agiz', name: 'Hücre Ağzı', color: COLORS.ANIMAL_VACUOLE, description: 'Besinlerin hücreye alındığı açıklıktır.', funFact: 'Siller besinleri buraya doğru süpürür.', patterns: ['agiz', 'sitostom', 'oral'] },
+      { id: 'para-yutak', name: 'Hücre Yutağı', color: COLORS.ANIMAL_VACUOLE, opacity: 0.6, description: 'Besinlerin kofula taşındığı kanaldır.', funFact: 'Huni şeklindedir.', patterns: ['yutak'] },
+      { id: 'para-besin', name: 'Besin Kofulu', color: COLORS.ANIMAL_LYSO, opacity: 0.6, description: 'Besinlerin sindirildiği yerdir.', funFact: 'Hücre içinde sitoplazma akıntısıyla dolaşır.', patterns: ['besin_kofulu', 'besin'] },
+      { id: 'para-kontra', name: 'Kontraktil Koful', color: COLORS.ANIMAL_VACUOLE, opacity: 0.5, description: 'Fazla suyu dışarı atar.', funFact: 'Yıldız şeklinde olup hücrenin iki ucunda yer alırlar.', patterns: ['kontraktil_koful', 'vururgan', 'kontraktil'] },
+      { id: 'para-mito', name: 'Mitokondri', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Enerji santralidir.', funFact: 'Özellikle sillerin hareketi için enerji üretir.', patterns: ['mitokondri'] },
+      { id: 'para-trikosist', name: 'Trikosist', color: COLORS.ER_GOLGI, description: 'Savunma mekanizmasıdır.', funFact: 'Tehlike anında zehirli iplikçikler fırlatarak düşmanını felç edebilir.', patterns: ['trikosist'] }
+    ]
   }
 ];
 
@@ -235,9 +254,10 @@ export function matchOrganelle(meshName, cellData) {
                     cellData.id.includes('sperm') ? 'sperm' :
                     cellData.id.includes('alyuvar') ? 'alyuvar' :
                     cellData.id.includes('amip') ? 'amip' : 
-                    cellData.id.includes('oglena') ? 'oglena' : '').toLowerCase();
+                    cellData.id.includes('oglena') ? 'oglena' : 
+                    cellData.id.includes('paramecium') ? 'paramecium' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip', 'oglena'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip', 'oglena', 'paramecium'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
