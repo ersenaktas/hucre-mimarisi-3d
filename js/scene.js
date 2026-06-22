@@ -164,7 +164,7 @@ export class SceneManager {
   }
 
   _createPremiumMaterial(org) {
-    const isTransparent = org.opacity && org.opacity < 1.0;
+    const isTransparent = Boolean(org.opacity && org.opacity < 1.0);
     const name = org.id.toLowerCase();
     
     // Temel Fiziksel Materyal Ayarları
