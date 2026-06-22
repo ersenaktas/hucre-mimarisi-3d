@@ -67,8 +67,15 @@ export class SceneManager {
   }
 
   _initLights() {
-    // Web3DTest ortamında ekstra ışık kullanılmıyor, sadece RoomEnvironment kullanılıyor.
-    // Aşırı parlamayı engellemek için tüm ekstra ışıkları iptal ettik.
+    // Sadece ortam yansıması bazı mat/lambert materyalleri simsiyah yapabilir.
+    // Bu yüzden çok yumuşak bir ortam ışığı ve tek bir yönlü ışık ekliyoruz.
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    this.scene.add(ambient);
+    
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    keyLight.position.set(5, 10, 7.5);
+    keyLight.castShadow = true;
+    this.scene.add(keyLight);
   }
 
   _initEnvironment() {
