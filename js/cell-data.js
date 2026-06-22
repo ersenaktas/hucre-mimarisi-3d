@@ -47,10 +47,10 @@ const COLORS = {
   RED_BLOOD: 0xc0392b,       // Alyuvar: Koyu Kırmızı
 
   // Virüs (Bakteriyofaj) Özel Renkler
-  VIRUS_CAPSID: 0x27ae60,    // Kapsit: Zümrüt yeşili
-  VIRUS_TAIL: 0xbdc3c7,      // Kuyruk: Gri/gümüş
-  VIRUS_FIBERS: 0xf1c40f,    // Kuyruk lifleri: Sarı
-  VIRUS_GENOME: 0xe74c3c     // DNA/RNA: Kırmızı
+  VIRUS_CAPSID: 0x9b59b6,    // Kapsit: Mor / Ametist
+  VIRUS_TAIL: 0xfdfbf7,      // Kuyruk: Kemik beyazı
+  VIRUS_FIBERS: 0xe74c3c,    // Kuyruk lifleri/çıkıntılar: Kırmızı
+  VIRUS_GENOME: 0x3498db     // DNA/RNA: Mavi
 };
 
 export const CELLS = [
@@ -216,7 +216,7 @@ export const CELLS = [
     subtitle: 'Hücresel Olmayan Varlık',
     modelFile: 'optimized_virus.glb',
     organelles: [
-      { id: 'vir-kapsit', name: 'Baş (Kapsit)', color: COLORS.VIRUS_CAPSID, description: 'Genetik materyali koruyan protein kılıftır.', funFact: 'Her virüs türünün kendine özgü bir kapsit şekli vardır.', patterns: ['bas_kapsit', 'baslik_cikintilari'] },
+      { id: 'vir-kapsit', name: 'Baş (Kapsit)', color: COLORS.VIRUS_CAPSID, opacity: 0.6, description: 'Genetik materyali koruyan protein kılıftır.', funFact: 'Her virüs türünün kendine özgü bir kapsit şekli vardır.', patterns: ['bas_kapsit', 'baslik_cikintilari'] },
       { id: 'vir-genom', name: 'Genetik Materyal (DNA/RNA)', color: COLORS.VIRUS_GENOME, description: 'Virüsün çoğalması için gerekli bilgiyi taşır.', funFact: 'Virüsler ya sadece DNA ya da sadece RNA içerirler, ikisini birden bulundurmazlar.', patterns: ['dna', 'rna'] },
       { id: 'vir-kuyruk', name: 'Kuyruk Kılıfı', color: COLORS.VIRUS_TAIL, description: 'Kasılabilir yapısıyla genetik materyali konak hücreye enjekte eder.', funFact: "Bir şırınga gibi çalışarak DNA/RNA'yı hücre içine fırlatır.", patterns: ['kuyruk', 'mesh003', 'mesh005'] },
       { id: 'vir-taban', name: 'Taban Plakası', color: COLORS.VIRUS_TAIL, description: 'Kuyruğun ucunda bulunan ve enzimleri salgılayan bölümdür.', funFact: 'Konak hücrenin zarını eritecek özel lizozim enzimleri taşır.', patterns: ['taban_plakasi'] },

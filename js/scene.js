@@ -299,7 +299,7 @@ export class SceneManager {
             
             // Eğer Bitki, Hayvan veya Bakteri ise (eski modeller) özel render materyali oluştur ve ez
             // Mantar ve Sperm gibi kullanıcının özel materyallerini içeren modellerde bu adımı atla.
-            if (['bitkihucre', 'hayvanhucre', 'bakterihucre'].includes(cellData.id)) {
+            if (['bitkihucre', 'hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id)) {
                 const premiumMat = this._createPremiumMaterial(org);
                 this.originalMaterials.set(child, premiumMat);
                 child.material = premiumMat;
