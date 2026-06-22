@@ -218,7 +218,7 @@ export const CELLS = [
     organelles: [
       { id: 'vir-kapsit', name: 'Baş (Kapsit)', color: COLORS.VIRUS_CAPSID, description: 'Genetik materyali koruyan protein kılıftır.', funFact: 'Her virüs türünün kendine özgü bir kapsit şekli vardır.', patterns: ['bas_kapsit', 'baslik_cikintilari'] },
       { id: 'vir-genom', name: 'Genetik Materyal (DNA/RNA)', color: COLORS.VIRUS_GENOME, description: 'Virüsün çoğalması için gerekli bilgiyi taşır.', funFact: 'Virüsler ya sadece DNA ya da sadece RNA içerirler, ikisini birden bulundurmazlar.', patterns: ['dna', 'rna'] },
-      { id: 'vir-kuyruk', name: 'Kuyruk Kılıfı', color: COLORS.VIRUS_TAIL, description: 'Kasılabilir yapısıyla genetik materyali konak hücreye enjekte eder.', funFact: 'Bir şırınga gibi çalışarak DNA/RNA\\'yı hücre içine fırlatır.', patterns: ['kuyruk', 'mesh003', 'mesh005'] },
+      { id: 'vir-kuyruk', name: 'Kuyruk Kılıfı', color: COLORS.VIRUS_TAIL, description: 'Kasılabilir yapısıyla genetik materyali konak hücreye enjekte eder.', funFact: "Bir şırınga gibi çalışarak DNA/RNA'yı hücre içine fırlatır.", patterns: ['kuyruk', 'mesh003', 'mesh005'] },
       { id: 'vir-taban', name: 'Taban Plakası', color: COLORS.VIRUS_TAIL, description: 'Kuyruğun ucunda bulunan ve enzimleri salgılayan bölümdür.', funFact: 'Konak hücrenin zarını eritecek özel lizozim enzimleri taşır.', patterns: ['taban_plakasi'] },
       { id: 'vir-lifler', name: 'Kuyruk Lifleri', color: COLORS.VIRUS_FIBERS, description: 'Konak hücreyi tanımaya ve ona tutunmaya yarar.', funFact: 'Sadece kendisine uygun özel hücreleri (örneğin sadece belirli bakterileri) tanıyabilir.', patterns: ['kuyruk_lifleri', 'mesh002', 'mesh006'] }
     ]
