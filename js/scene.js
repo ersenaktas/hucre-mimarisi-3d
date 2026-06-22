@@ -434,6 +434,20 @@ export class SceneManager {
   resetCamera() {
     this.controls.autoRotate = false;
     this._fitCameraToModel();
+    
+    // Görünürlüğü ve gizlenenleri sıfırla
+    this.isolateActive = false;
+    this.hideOthersActive = false;
+    Object.keys(this.organelleGroups).forEach(id => {
+      this.organelleGroups[id].forEach(m => {
+        m.visible = true;
+        const origMat = this.originalMaterials.get(m);
+        if (origMat) {
+            m.material.transparent = origMat.transparent;
+            m.material.opacity = origMat.opacity;
+        }
+      });
+    });
   }
 
   takeScreenshot() {
