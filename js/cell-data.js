@@ -44,7 +44,13 @@ const COLORS = {
   // Mantar, Sperm ve Alyuvar Özel Renkler
   FUNGI_WALL: 0x8d6e63,      // Kitin Duvarı: Kahverengi ton
   SPERM_TAIL: 0xbdc3c7,      // Kamçı: Açık gri
-  RED_BLOOD: 0xc0392b        // Alyuvar: Koyu Kırmızı
+  RED_BLOOD: 0xc0392b,       // Alyuvar: Koyu Kırmızı
+
+  // Virüs (Bakteriyofaj) Özel Renkler
+  VIRUS_CAPSID: 0x27ae60,    // Kapsit: Zümrüt yeşili
+  VIRUS_TAIL: 0xbdc3c7,      // Kuyruk: Gri/gümüş
+  VIRUS_FIBERS: 0xf1c40f,    // Kuyruk lifleri: Sarı
+  VIRUS_GENOME: 0xe74c3c     // DNA/RNA: Kırmızı
 };
 
 export const CELLS = [
@@ -203,6 +209,19 @@ export const CELLS = [
       { id: 'para-mito', name: 'Mitokondri', group: 'Mitokondri', color: COLORS.MITO_OUTER, opacity: 0.3, description: 'Enerji santralidir.', funFact: 'Özellikle sillerin hareketi için enerji üretir.', patterns: ['mitokondri'] },
       { id: 'para-trikosist', name: 'Trikosist', color: COLORS.ER_GOLGI, description: 'Savunma mekanizmasıdır.', funFact: 'Tehlike anında zehirli iplikçikler fırlatarak düşmanını felç edebilir.', patterns: ['trikosist'] }
     ]
+  },
+  {
+    id: 'virushucre',
+    name: 'Virüs (Bakteriyofaj)',
+    subtitle: 'Hücresel Olmayan Varlık',
+    modelFile: 'optimized_virus.glb',
+    organelles: [
+      { id: 'vir-kapsit', name: 'Baş (Kapsit)', color: COLORS.VIRUS_CAPSID, description: 'Genetik materyali koruyan protein kılıftır.', funFact: 'Her virüs türünün kendine özgü bir kapsit şekli vardır.', patterns: ['bas_kapsit', 'baslik_cikintilari'] },
+      { id: 'vir-genom', name: 'Genetik Materyal (DNA/RNA)', color: COLORS.VIRUS_GENOME, description: 'Virüsün çoğalması için gerekli bilgiyi taşır.', funFact: 'Virüsler ya sadece DNA ya da sadece RNA içerirler, ikisini birden bulundurmazlar.', patterns: ['dna', 'rna'] },
+      { id: 'vir-kuyruk', name: 'Kuyruk Kılıfı', color: COLORS.VIRUS_TAIL, description: 'Kasılabilir yapısıyla genetik materyali konak hücreye enjekte eder.', funFact: 'Bir şırınga gibi çalışarak DNA/RNA\\'yı hücre içine fırlatır.', patterns: ['kuyruk', 'mesh003', 'mesh005'] },
+      { id: 'vir-taban', name: 'Taban Plakası', color: COLORS.VIRUS_TAIL, description: 'Kuyruğun ucunda bulunan ve enzimleri salgılayan bölümdür.', funFact: 'Konak hücrenin zarını eritecek özel lizozim enzimleri taşır.', patterns: ['taban_plakasi'] },
+      { id: 'vir-lifler', name: 'Kuyruk Lifleri', color: COLORS.VIRUS_FIBERS, description: 'Konak hücreyi tanımaya ve ona tutunmaya yarar.', funFact: 'Sadece kendisine uygun özel hücreleri (örneğin sadece belirli bakterileri) tanıyabilir.', patterns: ['kuyruk_lifleri', 'mesh002', 'mesh006'] }
+    ]
   }
 ];
 
@@ -255,9 +274,10 @@ export function matchOrganelle(meshName, cellData) {
                     cellData.id.includes('alyuvar') ? 'alyuvar' :
                     cellData.id.includes('amip') ? 'amip' : 
                     cellData.id.includes('oglena') ? 'oglena' : 
-                    cellData.id.includes('paramecium') ? 'paramecium' : '').toLowerCase();
+                    cellData.id.includes('paramecium') ? 'paramecium' : 
+                    cellData.id.includes('virus') ? 'virus' : '').toLowerCase();
 
-  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip', 'oglena', 'paramecium'].filter(k => k !== filterKey);
+  const otherKeys = ['hayvan', 'bitki', 'bakteri', 'mantar', 'sperm', 'alyuvar', 'amip', 'oglena', 'paramecium', 'virus'].filter(k => k !== filterKey);
   const belongsToOther = otherKeys.some(k => nameLower.includes(k));
   
   if (belongsToOther && !nameLower.includes(filterKey)) return null;
