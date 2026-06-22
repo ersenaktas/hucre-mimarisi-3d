@@ -106,7 +106,7 @@ h3 {
 .main-layout {
     flex: 1;
     display: grid;
-    grid-template-columns: 280px 1fr 320px;
+    grid-template-columns: minmax(240px, 280px) 1fr minmax(280px, 320px);
     gap: 20px;
     padding: 10px 30px 20px 30px;
 }
@@ -525,7 +525,7 @@ input:checked+.slider:before {
 }
 
 /* MOBILE RESPONSIVE - FIXED */
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
     body {
         overflow-y: auto;
         height: auto;
