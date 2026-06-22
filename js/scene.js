@@ -39,7 +39,7 @@ export class SceneManager {
 
   _initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xf2efe7); // Studio Cream
+    this.scene.background = new THREE.Color(0x0f172a); // Web3DTest Dark Blue
 
     const width = this.canvas.clientWidth;
     const height = this.canvas.clientHeight;
@@ -67,33 +67,14 @@ export class SceneManager {
   }
 
   _initLights() {
-    // Yereldeki gibi temiz ve mat bir görüntü için sadece doğrudan ışıklar kullanıyoruz.
-    
-    // 1. Genel Aydınlık (Yumuşak dolgu)
-    const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    this.scene.add(ambient);
-    
-    // 2. Gökyüzü Işığı (Derinlik ve renk dengesi için)
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
-    this.scene.add(hemiLight);
-    
-    // 3. Ana Işık (Sadece hafif gölge ve form belirginliği için)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 0.7);
-    keyLight.position.set(5, 10, 7.5);
-    keyLight.castShadow = true;
-    keyLight.shadow.bias = -0.0001;
-    this.scene.add(keyLight);
+    // Web3DTest ortamında ekstra ışık kullanılmıyor, sadece RoomEnvironment kullanılıyor.
+    // Aşırı parlamayı engellemek için tüm ekstra ışıkları iptal ettik.
   }
 
   _initEnvironment() {
-    // Local ve GitHub farkını çözmek için dosya yolunu garantili hale getiriyoruz.
-    const rgbeLoader = new RGBELoader();
-    rgbeLoader.load('./environment.hdr', (texture) => {
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      this.scene.environment = texture;
-    }, undefined, (err) => {
-      console.warn("HDR dosyası yüklenemedi, standart ışıklar devrede.", err);
-    });
+    // Web3DTest projesiyle birebir aynı çevre (environment) aydınlatması
+    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
   }
 
   _initControls() {
