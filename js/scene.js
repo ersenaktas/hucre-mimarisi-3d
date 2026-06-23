@@ -135,7 +135,7 @@ export class SceneManager {
       dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
       loader.setDRACOLoader(dracoLoader);
 
-      loader.load(`${cellData.modelFile}?v=2`, (gltf) => {
+      loader.load(`${cellData.modelFile}?v=5`, (gltf) => {
         this._processModel(gltf.scene, cellData);
         this.modelCache[cellData.id] = {
           model: gltf.scene,
