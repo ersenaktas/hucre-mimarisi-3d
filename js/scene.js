@@ -66,15 +66,9 @@ export class SceneManager {
   }
 
   _initLights() {
-    // Sadece ortam yansıması bazı mat/lambert materyalleri simsiyah yapabilir.
-    // Bu yüzden çok yumuşak bir ortam ışığı ve tek bir yönlü ışık ekliyoruz.
-    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-    this.scene.add(ambient);
-    
-    const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    keyLight.position.set(5, 10, 7.5);
-    keyLight.castShadow = false; // Gölgeler kapatıldı
-    this.scene.add(keyLight);
+    // web3dtest projesiyle birebir aynı: EKSTRA IŞIK YOK.
+    // Sadece RoomEnvironment (_initEnvironment) tüm aydınlatmayı sağlıyor.
+    // Ekstra ışıklar bitki hücresi gibi texture'lu modellerde renk bozulmasına sebep oluyor.
   }
 
   _initEnvironment() {
