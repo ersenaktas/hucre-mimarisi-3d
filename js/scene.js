@@ -235,13 +235,16 @@ export class SceneManager {
     this.organelleGroups = {};
     this.originalMaterials.clear();
     
-    const filterKey = cellData.id.includes('hayvan') ? 'hayvan' : 
-                      cellData.id.includes('bitki') ? 'bitki' : 
-                      cellData.id.includes('bakteri') ? 'bakteri' : '';
+    const isBitki = cellData.id === 'bitkihucre';
 
     model.traverse((child) => {
       if (child.isMesh) {
         const meshName = (child.name || '').toLowerCase();
+        
+        // Bitki hücresi için teşhis logu
+        if (isBitki) {
+          console.log(`[Bitki Teşhis] Mesh: "${child.name}", Material: "${child.material?.name || '?'}", HasMap: ${!!child.material?.map}, Type: ${child.material?.type}`);
+        }
         
         // Gereksiz kutuları gizle
         if (meshName.startsWith('box_')) {
@@ -249,15 +252,13 @@ export class SceneManager {
           return;
         }
 
-        // Modeller ayrıldığı için tüm parçalar mevcut hücreye aittir.
-
-        // Tam hiyerarşi adını alarak eşleştir (Örn: "hayvan_hucre Hay_cekridek_er Mesh001")
+        // Tam hiyerarşi adını alarak eşleştir
         const fullName = this._getFullName(child);
         const org = matchOrganelle(fullName, cellData);
         
         if (org) {
           child.userData.organelleId = org.id;
-          child.userData.group = org.group; // Store group in userData
+          child.userData.group = org.group;
           
           if (!this.organelleGroups[org.id]) this.organelleGroups[org.id] = [];
           this.organelleGroups[org.id].push(child);
@@ -265,29 +266,26 @@ export class SceneManager {
           if (org.group) {
             this.organelleToGroup[org.id] = org.group;
           }
+        }
 
-          // Kullanıcının GLB dosyasında hazırladığı orijinal materyali koru
+        // Orijinal materyali kaydet (sıfırla/gizle/izole için gerekli)
+        if (child.material) {
+          this.originalMaterials.set(child, child.material.clone());
+        }
+
+        // Bitki hücresi: HİÇBİR ŞEYe dokunma, GLB'den ne geldiyse aynen bırak
+        if (isBitki) return;
+
+        // Diğer hücreler için premium materyal uygula
+        if (org && child.material) {
           child.castShadow = true;
           child.receiveShadow = true;
-          
-          if (child.material) {
-            // Kullanıcının modelinde gelen orijinal materyali belleğe alalım
-            this.originalMaterials.set(child, child.material.clone());
-            
-            // Eğer Bitki hücresi değilse özel materyal kullan (Hayvan, Bakteri, Virüs için)
-            // Bitki hücresinde kullanıcının kendi materyalleri tamamen korunacak
-            if (['hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id)) {
-                const premiumMat = this._createPremiumMaterial(org);
-                this.originalMaterials.set(child, premiumMat);
-                child.material = premiumMat;
-            }
-          }
+          const premiumMat = this._createPremiumMaterial(org);
+          this.originalMaterials.set(child, premiumMat);
+          child.material = premiumMat;
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
-          if (child.material) {
-            this.originalMaterials.set(child, child.material.clone());
-          }
         }
       }
     });
