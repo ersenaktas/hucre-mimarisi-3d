@@ -61,9 +61,8 @@ export class SceneManager {
     this.renderer.toneMappingExposure = 1.0; // Patlamayı engellemek için 1.0'a çekildi
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     
-    // Gölgeleri Aktifleştir
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // Gölgeleri tamamen kapatıyoruz çünkü optimize edilmemiş GLB'lerde ciddi artifact/çizgilenme yapıyor
+    this.renderer.shadowMap.enabled = false;
   }
 
   _initLights() {
@@ -74,8 +73,7 @@ export class SceneManager {
     
     const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
     keyLight.position.set(5, 10, 7.5);
-    keyLight.castShadow = true;
-    keyLight.shadow.bias = -0.0001; // Gölgelerdeki çizgilenme/artifact hatasını çözer
+    keyLight.castShadow = false; // Gölgeler kapatıldı
     this.scene.add(keyLight);
   }
 
@@ -171,15 +169,11 @@ export class SceneManager {
 
     // 1. CAM VE JELATİN TİPİ (Kofullar, Sitoplazma ve Şeffaf Zarlar)
     if (name.includes('koful') || name.includes('sitoplazma') || name.includes('sitolazma') || name.includes('ic_zar') || name.includes('dis_zar') || name.includes('klodis') || (isTransparent && name.includes('zar'))) {
-      params.roughness = 0.05;
-      params.metalness = 0.0;
-      params.transmission = 0.9; 
-      params.thickness = 2.0;    
-      params.ior = 1.33;         
-      params.clearcoat = 1.0;
-      params.clearcoatRoughness = 0.05;
+      params.roughness = 0.1;
       params.transparent = true;
-      params.envMapIntensity = 1.0; // Sadece camlar tam yansıma alsın
+      params.opacity = org.opacity || 0.4;
+      params.depthWrite = false;
+      params.envMapIntensity = 1.0;
     }
     // 2. ÇEKİRDEK VE PARLAK YÜZEYLER
     else if (name.includes('cekirdek') || name.includes('nukleo')) {
