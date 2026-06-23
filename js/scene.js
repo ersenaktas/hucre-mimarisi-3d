@@ -75,6 +75,7 @@ export class SceneManager {
     const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
     keyLight.position.set(5, 10, 7.5);
     keyLight.castShadow = true;
+    keyLight.shadow.bias = -0.0001; // Gölgelerdeki çizgilenme/artifact hatasını çözer
     this.scene.add(keyLight);
   }
 
@@ -285,9 +286,11 @@ export class SceneManager {
             // Kullanıcının modelinde gelen orijinal materyali belleğe alalım
             this.originalMaterials.set(child, child.material.clone());
             
-            // Eğer Bitki, Hayvan veya Bakteri ise (eski modeller) özel render materyali oluştur ve ez
-            // Mantar ve Sperm gibi kullanıcının özel materyallerini içeren modellerde bu adımı atla.
-            if (['hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id)) {
+            const hasTexture = child.material.map != null;
+            const isBitki = cellData.id === 'bitkihucre';
+
+            // Eğer Bitki hücresiyse ve kaplaması (texture) yoksa özel materyal kullan. Kaplaması varsa orijinalini bırak.
+            if (['hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id) || (isBitki && !hasTexture)) {
                 const premiumMat = this._createPremiumMaterial(org);
                 this.originalMaterials.set(child, premiumMat);
                 child.material = premiumMat;
