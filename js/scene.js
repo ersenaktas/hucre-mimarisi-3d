@@ -280,11 +280,9 @@ export class SceneManager {
             // Kullanıcının modelinde gelen orijinal materyali belleğe alalım
             this.originalMaterials.set(child, child.material.clone());
             
-            const hasTexture = child.material.map != null;
-            const isBitki = cellData.id === 'bitkihucre';
-
-            // Eğer Bitki hücresiyse ve kaplaması (texture) yoksa özel materyal kullan. Kaplaması varsa orijinalini bırak.
-            if (['hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id) || (isBitki && !hasTexture)) {
+            // Eğer Bitki hücresi değilse özel materyal kullan (Hayvan, Bakteri, Virüs için)
+            // Bitki hücresinde kullanıcının kendi materyalleri tamamen korunacak
+            if (['hayvanhucre', 'bakterihucre', 'virushucre'].includes(cellData.id)) {
                 const premiumMat = this._createPremiumMaterial(org);
                 this.originalMaterials.set(child, premiumMat);
                 child.material = premiumMat;
