@@ -241,11 +241,6 @@ export class SceneManager {
       if (child.isMesh) {
         const meshName = (child.name || '').toLowerCase();
         
-        // Bitki hücresi için teşhis logu
-        if (isBitki) {
-          console.log(`[Bitki Teşhis] Mesh: "${child.name}", Material: "${child.material?.name || '?'}", HasMap: ${!!child.material?.map}, Type: ${child.material?.type}`);
-        }
-        
         // Gereksiz kutuları gizle
         if (meshName.startsWith('box_')) {
           child.visible = false;

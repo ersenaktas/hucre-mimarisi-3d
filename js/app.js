@@ -92,7 +92,7 @@ class App {
   }
 
   _onModelLoaded() {
-    console.log(`[Teşhis Özeti] ${this.currentCell.name} yüklendi.`);
+    // Model başarıyla yüklendi
   }
 
   _onOrganelleClicked(organelleId) {
