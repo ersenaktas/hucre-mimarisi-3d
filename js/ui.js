@@ -258,24 +258,27 @@ class UIManager {
     const color = '#' + org.color.toString(16).padStart(6, '0');
     
     this.detailsContent.innerHTML = `
-      <div class="detail-header" style="padding-left: 0;">
-        <div class="detail-info">
-          <strong style="color: ${color}; font-size: 1.1rem; display: block; margin-bottom: 5px;">${org.name}</strong>
-          <p>Hücrenin ${this.getOrganelleTagline(org.id)}</p>
-        </div>
+      <div style="margin-bottom: 12px;">
+        <strong style="color: ${color}; font-size: 1.15rem; display: block; margin-bottom: 6px;">${org.name}</strong>
+        <p style="font-size:0.85rem; color:#777; margin-bottom:12px;">Hücrenin ${this.getOrganelleTagline(org.id)}</p>
       </div>
-      <div class="detail-meta">
-        <span class="detail-meta-label">Boyut</span>
-        <span class="detail-meta-value">${this.getOrganelleSize(org.id)}</span>
-        <span class="detail-meta-label">Konum</span>
-        <span class="detail-meta-value">${this.getOrganelleLocation(org.id)}</span>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.88rem;">
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span style="font-weight:700; color:#888; min-width:52px; padding-top:1px;">Boyut</span>
+          <span style="color:#444; line-height:1.5;">${this.getOrganelleSize(org.id)}</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span style="font-weight:700; color:#888; min-width:52px; padding-top:1px;">Konum</span>
+          <span style="color:#444; line-height:1.5;">${this.getOrganelleLocation(org.id)}</span>
+        </div>
       </div>
     `;
 
     this.notesContent.innerHTML = `
-      <p>${org.description || 'Bu organel hücrenin hayati fonksiyonlarını sürdürmesi için kritik öneme sahiptir.'}</p>
-      <div class="fun-fact">
-        <strong>Biliyor muydunuz?</strong> ${this.getFunFact(org.id)}
+      <p style="margin-bottom:14px; line-height:1.7;">${org.description || 'Bu organel hücrenin hayati fonksiyonlarını sürdürmesi için kritik öneme sahiptir.'}</p>
+      <div style="background:#f5f0ff; border-left:3px solid #6c5ce7; border-radius:6px; padding:12px 14px; font-size:0.88rem; line-height:1.6;">
+        <strong style="color:#6c5ce7; display:block; margin-bottom:4px;">💡 Biliyor muydunuz?</strong>
+        ${this.getFunFact(org.id)}
       </div>
     `;
   }

@@ -106,16 +106,36 @@ h3 {
 .main-layout {
     flex: 1;
     display: grid;
-    grid-template-columns: minmax(240px, 280px) 1fr minmax(280px, 320px);
+    grid-template-columns: minmax(240px, 280px) 1fr minmax(320px, 380px);
     gap: 20px;
     padding: 10px 30px 20px 30px;
+    overflow: hidden;
 }
 
 .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    min-height: 0;
+}
+
+.right-sidebar {
+    overflow-y: auto;
+}
+
+.right-sidebar .details-panel {
+    flex-shrink: 0;
+}
+
+.right-sidebar .notes-panel {
+    flex: 1;
+    min-height: 180px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .panel {
@@ -454,12 +474,21 @@ h3 {
 }
 
 /* RIGHT SIDEBAR */
-.details-body,
+.details-body {
+    margin-top: 12px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: #444;
+}
+
 .notes-body {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: #555;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #444;
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 4px;
 }
 
 .occurrence-panel {
