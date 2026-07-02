@@ -274,12 +274,29 @@ class UIManager {
       </div>
     `;
 
+    const cellInfo = this.app.currentCell?.cellInfo;
     this.notesContent.innerHTML = `
       <p style="margin-bottom:14px; line-height:1.7;">${org.description || 'Bu organel hücrenin hayati fonksiyonlarını sürdürmesi için kritik öneme sahiptir.'}</p>
-      <div style="background:#f5f0ff; border-left:3px solid #6c5ce7; border-radius:6px; padding:12px 14px; font-size:0.88rem; line-height:1.6;">
-        <strong style="color:#6c5ce7; display:block; margin-bottom:4px;">💡 Biliyor muydunuz?</strong>
-        ${this.getFunFact(org.id)}
+      ${cellInfo ? `
+      <div style="background: linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%); border-radius:10px; padding:16px; font-size:0.88rem; line-height:1.7; margin-top:12px; border: 1px solid rgba(108,92,231,0.15);">
+        <strong style="color:#6c5ce7; display:block; margin-bottom:10px; font-size:0.95rem;">🔬 ${this.app.currentCell.name} Hakkında</strong>
+        <p style="margin-bottom:10px; color:#444;">${cellInfo.genel}</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; gap:8px; align-items:flex-start;">
+            <span style="font-size:1rem; min-width:20px;">🌍</span>
+            <div><strong style="color:#555; font-size:0.82rem;">Yaşam Alanı</strong><br><span style="color:#666;">${cellInfo.habitat}</span></div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:flex-start;">
+            <span style="font-size:1rem; min-width:20px;">⚡</span>
+            <div><strong style="color:#555; font-size:0.82rem;">Temel Özellik</strong><br><span style="color:#666;">${cellInfo.ozellik}</span></div>
+          </div>
+          <div style="background:rgba(108,92,231,0.08); border-radius:8px; padding:10px 12px; margin-top:4px;">
+            <span style="font-size:1rem;">✨</span> <strong style="color:#6c5ce7; font-size:0.82rem;">İlginç Gerçek</strong><br>
+            <span style="color:#555;">${cellInfo.ilgincGercek}</span>
+          </div>
+        </div>
       </div>
+      ` : ''}
     `;
   }
 
@@ -319,12 +336,7 @@ class UIManager {
     return 'Sitoplazma içinde';
   }
 
-  getFunFact(id) {
-    if (id.includes('cekirdek')) return 'Çekirdek, hücrenin tüm DNA bilgisini saklayan bir kütüphane gibidir!';
-    if (id.includes('mito')) return 'Mitokondrilerin kendilerine ait özel bir DNA\'ları vardır!';
-    if (id.includes('klor')) return 'Kloroplastlar güneş enerjisini doğrudan besine dönüştürebilir!';
-    return 'Bu organel hücrenin yaşam döngüsü için vazgeçilmezdir.';
-  }
+
 
   showLoading(isVisible, progress = 0) {
     const overlay = document.getElementById('loading-overlay');

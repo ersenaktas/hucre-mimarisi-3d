@@ -59,6 +59,12 @@ export const CELLS = [
     name: 'Bitki Hücresi',
     subtitle: 'Ökaryotik Hücre',
     modelFile: 'optimized_optimized_bitki_v2.glb',
+    cellInfo: {
+      genel: 'Bitki hücreleri, bitkiler alemine ait tüm canlıların temel yapı taşıdır. Hücre çeperi ve kloroplast gibi özgün yapılarıyla hayvan hücrelerinden ayrılırlar.',
+      habitat: 'Karasal ve sucul ortamlardaki tüm yeşil bitkilerin yaprak, gövde, kök ve çiçek dokularında bulunur.',
+      ozellik: 'Fotosentez yaparak güneş enerjisini kimyasal enerjiye dönüştürür ve atmosfere oksijen salar.',
+      ilgincGercek: 'Bir yaprak hücresinde yaklaşık 40-50 adet kloroplast bulunabilir ve tek bir ağaç günde ortalama 100 litre oksijen üretir.'
+    },
     organelles: [
       { id: 'bit-ceperi', name: 'Hücre Çeperi', color: COLORS.PLANT_WALL, description: 'Hücrenin en dışındaki koruyucu, sert tabakadır.', funFact: 'Selüloz yapısı sayesinde bitkiyi dış etkenlere karşı korur.', patterns: ['bitki_hucre_ceperi', 'ceperi', 'wall'] },
       { id: 'bit-zar', name: 'Hücre Zarı', color: COLORS.PLANT_MEM, description: 'Hücrenin seçici geçirgen sınırıdır.', funFact: 'Madde giriş çıkışını kontrol eden canlı bir yapıdır.', patterns: ['bitki_hucre_zari', 'hucre_zari', 'membrane'] },
@@ -82,6 +88,12 @@ export const CELLS = [
     name: 'Hayvan Hücresi',
     subtitle: 'Ökaryotik Hücre',
     modelFile: 'optimized_hayvan.glb',
+    cellInfo: {
+      genel: 'Hayvan hücreleri, hayvanlar alemine ait tüm çok hücreli canlıların yapı birimidir. Hücre çeperi bulunmaz, bunun yerine esnek bir hücre zarı ile çevrilmiştir.',
+      habitat: 'Karada, denizde ve havada yaşayan tüm hayvanların kas, sinir, epitel ve bağ doku gibi çeşitli dokularında bulunur.',
+      ozellik: 'Sentrozom sayesinde hücre bölünmesini gerçekleştirir. Lizozomlar ile hücre içi sindirimi yapar.',
+      ilgincGercek: 'İnsan vücudunda yaklaşık 37,2 trilyon hücre bulunur ve her saniye yaklaşık 3,8 milyon hücre yenilenir.'
+    },
     organelles: [
       { id: 'hay-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, opacity: 0.2, description: 'Hücreyi dış ortamdan ayıran seçici geçirgen zardır.', funFact: 'Çift katlı fosfolipit tabakasından oluşur.', patterns: ['hay__zar', 'cell_membrane'] },
       { id: 'hay-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Organellerin içinde bulunduğu jel benzeri sıvıdır.', funFact: 'Hücre hacminin büyük bir kısmını kaplar.', patterns: ['hay_sitop', 'cytoplasm'] },
@@ -103,6 +115,12 @@ export const CELLS = [
     name: 'Bakteri Hücresi',
     subtitle: 'Prokaryotik Hücre',
     modelFile: 'optimized_bakteri.glb',
+    cellInfo: {
+      genel: 'Bakteriler, zarla çevrili bir çekirdeğe sahip olmayan prokaryotik canlılardır. Dünya üzerindeki en eski ve en yaygın yaşam formlarından biridir.',
+      habitat: 'Toprakta, suda, havada, sıcak su kaynaklarında, buzullarda ve hatta diğer canlıların vücudunda her yerde yaşayabilirler.',
+      ozellik: 'Çekirdekleri ve zarlı organelleri yoktur. Halkasal DNA\'ları sitoplazmada serbest halde bulunur. İkiye bölünerek çoğalırlar.',
+      ilgincGercek: 'İnsan vücudunda kendi hücrelerimizle neredeyse eşit sayıda (yaklaşık 38 trilyon) bakteri yaşar. Bazı bakteriler 20 dakikada bir bölünebilir.'
+    },
     organelles: [
       { id: 'bak-kapsul', name: 'Kapsül / Hücre Duvarı', color: COLORS.BACT_CAPSULE, description: 'Bakteriyi koruyan ve şekil veren dış yapı.', funFact: 'Hastalık yapıcı bakterilerde kalındır.', patterns: ['bakteri_dis'] },
       { id: 'bak-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Tüm yaşamsal olayların gerçekleştiği berrak iç sıvı.', funFact: 'Bakterilerin zarlı organeli olmadığı için tepkimeler doğrudan burada gerçekleşir.', patterns: ['bakteri_sitolazma', 'sitolazma', 'sitoplazma'] },
@@ -115,6 +133,12 @@ export const CELLS = [
     name: 'Mantar Hücresi',
     subtitle: 'Ökaryotik Hücre',
     modelFile: 'optimized_fungi.glb',
+    cellInfo: {
+      genel: 'Mantar hücreleri ökaryotik yapıda olup hücre duvarları selüloz yerine kitinden oluşur. Ne bitki ne de hayvandırlar; ayrı bir alem oluştururlar.',
+      habitat: 'Nemli ve organik madde bakımından zengin topraklarda, çürümekte olan bitki artıklarında ve ağaç gövdelerinde bulunurlar.',
+      ozellik: 'Fotosentez yapamazlar, besinlerini dışarıdan (saprofit veya parazit olarak) sağlarlar. Sporlarla ürerler.',
+      ilgincGercek: 'Dünyanın en büyük canlısı, ABD Oregon\'daki bir bal mantarıdır (Armillaria ostoyae). Yaklaşık 9 km² alana yayılmış ve tahmini 2400 yaşındadır.'
+    },
     organelles: [
       { id: 'man-duvar', name: 'Hücre Duvarı (Kitin)', color: COLORS.FUNGI_WALL, description: 'Mantarları bitkilerden ayıran kitin yapılı dış duvardır.', funFact: 'Böceklerin dış iskeleti de aynı madde olan kitinden oluşur.', patterns: ['fungi_1', 'duvar', 'wall'] },
       { id: 'man-zar', name: 'Hücre Zarı', color: COLORS.ANIMAL_MEM, description: 'Madde geçişini kontrol eder.', funFact: 'Bitki zarlarına benzer yapıdadır.', patterns: ['fungi_2', 'zar', 'membrane'] },
@@ -130,6 +154,12 @@ export const CELLS = [
     name: 'Sperm Hücresi',
     subtitle: 'Özelleşmiş Üreme Hücresi',
     modelFile: 'optimized_sperm.glb',
+    cellInfo: {
+      genel: 'Sperm hücresi, erkek üreme sistemi tarafından üretilen ve döllenmeyi sağlayan özelleşmiş bir gamet (üreme) hücresidir.',
+      habitat: 'Erkek üreme sisteminde (testislerde) üretilir ve döllenme için dişi üreme kanalında yumurta hücresine doğru yol alır.',
+      ozellik: 'Vücuttaki en küçük hücrelerden biridir. Baş, boyun ve kuyruk olmak üzere üç bölümden oluşur. Haploit (n) kromozom taşır.',
+      ilgincGercek: 'Bir sperm hücresi saniyede yaklaşık 3 mm hızla yüzebilir. Erkek vücudu günde yaklaşık 300 milyon sperm hücresi üretir.'
+    },
     organelles: [
       { id: 'sp-akrozom', name: 'Akrozom', color: COLORS.ANIMAL_CENTRO, description: 'Spermin baş kısmında bulunan sindirim enzimleridir.', funFact: 'Yumurta zarını delmek için özel enzimler taşır.', patterns: ['sperm_1', 'akrozom', 'acrosome'] },
       { id: 'sp-cekirdek', name: 'Çekirdek', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Babanın genetik mirasını taşır.', funFact: 'Normal hücrenin yarısı kadar (23 adet) kromozom içerir.', patterns: ['sperm_2', 'cekirdek', 'nucleus'] },
@@ -143,6 +173,12 @@ export const CELLS = [
     name: 'Alyuvar (Eritrosit)',
     subtitle: 'Oksijen Taşıyıcı Hücre',
     modelFile: 'optimized_alyuvar.glb',
+    cellInfo: {
+      genel: 'Alyuvarlar (eritrositler), kanın kırmızı rengini veren ve vücutta oksijen taşıma görevini üstlenen özelleşmiş hücrelerdir.',
+      habitat: 'Kan dolaşım sisteminde bulunur. Kemik iliğinde üretilir ve yaklaşık 120 gün yaşadıktan sonra dalak ve karaciğerde parçalanır.',
+      ozellik: 'Olgunlaştığında çekirdeğini ve organellerini kaybeder. Disk biçimli yapısı yüzey alanını artırarak daha verimli oksijen taşımasını sağlar.',
+      ilgincGercek: 'İnsan vücudunda yaklaşık 25 trilyon alyuvar bulunur ve her saniye yaklaşık 2,4 milyon yeni alyuvar üretilir.'
+    },
     organelles: [
       { id: 'al-hucre', name: 'Alyuvar (Eritrosit)', color: COLORS.RED_BLOOD, description: 'Kana kırmızı rengini veren ve vücutta oksijen taşıyan hücredir.', funFact: 'Olgunlaştıklarında çekirdeklerini ve diğer organellerini kaybederek daha fazla oksijen taşıma kapasitesine sahip olurlar.', patterns: ['alyuvar001', 'alyuvar'] }
     ]
@@ -152,6 +188,12 @@ export const CELLS = [
     name: 'Amip',
     subtitle: 'Tek Hücreli Canlı',
     modelFile: 'optimized_amip.glb',
+    cellInfo: {
+      genel: 'Amip, ökaryotik yapıda tek hücreli bir protist canlısıdır. Belirli bir şekli yoktur, yalancı ayaklar (pseudopod) oluşturarak şekil değiştirir.',
+      habitat: 'Tatlı sularda, nemli topraklarda ve su birikintilerinde yaşar. Bazı türleri insan bağırsağında parazit olarak bulunabilir.',
+      ozellik: 'Yalancı ayaklarla hem hareket eder hem de fagositoz yaparak besinlerini alır. İkiye bölünerek (amitoz) çoğalır.',
+      ilgincGercek: 'Amip, besinini yakalayabilmek için saatte yaklaşık 1 cm hızla hareket edebilir. Elverişsiz koşullarda kist formuna dönüşerek hayatta kalır.'
+    },
     organelles: [
       { id: 'am-zar', name: 'Hücre Zarı (Yalancı Ayaklar)', color: COLORS.ANIMAL_CYTO, opacity: 0.3, description: 'Amibin şekil değiştirmesini ve hareket etmesini sağlayan esnek zardır.', funFact: 'Yalancı ayaklar (pseudopod) sayesinde hem hareket eder hem de besin yakalar.', patterns: ['amip1', 'amip'] },
       { id: 'am-cekirdek-zari', name: 'Çekirdek Zarı', group: 'Çekirdek', color: COLORS.NUCLEUS_SHELL, description: 'Hücrenin genetik bilgisini korur.', funFact: 'Amip bölünerek çoğalırken önce çekirdeği ikiye ayrılır.', patterns: ['Amip_cekirdek_zari', 'Amip_cekirdek'] },
@@ -173,6 +215,12 @@ export const CELLS = [
     name: 'Öglena',
     subtitle: 'Kamçılı Tek Hücreli',
     modelFile: 'optimized_oglena.glb',
+    cellInfo: {
+      genel: 'Öglena, hem bitki hem de hayvan özelliklerini taşıyan kamçılı tek hücreli bir protist canlısıdır. Kloroplastları sayesinde fotosentez yapabilir.',
+      habitat: 'Durgun tatlı sularda, göletlerde ve su birikintilerinde yaşar. Özellikle organik madde bakımından zengin sularda bol bulunur.',
+      ozellik: 'Işık varken fotosentez yaparak (ototrof), karanlıkta ise hazır besinlerle (heterotrof) beslenir. Bu ikili beslenme biçimi benzersizdir.',
+      ilgincGercek: 'Göz lekesi (stigma) sayesinde ışığı algılayabilir ve kamçısını kullanarak ışığa doğru yüzer. Biyolojide "canlılar bitki mi hayvan mı?" tartışmasının en ünlü örneğidir.'
+    },
     organelles: [
       { id: 'og-pellikula', name: 'Pellikula (Hücre Zarı)', color: COLORS.ANIMAL_MEM, description: 'Öglenaya esneklik ve şekil veren protein yapılı kılıftır.', funFact: 'Hücre duvarı olmadığı için esnek hareket etmesini sağlar.', patterns: ['pellikula'] },
       { id: 'og-sitoplazma', name: 'Sitoplazma', color: COLORS.ANIMAL_CYTO, opacity: 0.1, description: 'Organellerin bulunduğu yarı akışkan sıvıdır.', funFact: 'Yaşamsal olayların büyük bir kısmı burada gerçekleşir.', patterns: ['sitoplazma'] },
@@ -196,6 +244,12 @@ export const CELLS = [
     name: 'Paramesyum',
     subtitle: 'Silli Tek Hücreli',
     modelFile: 'optimized_paramecium.glb',
+    cellInfo: {
+      genel: 'Paramesyum, terlik şeklindeki vücudu ve sillerle kaplı yapısıyla tanınan tek hücreli ökaryotik bir protist canlısıdır.',
+      habitat: 'Tatlı sularda, göllerde, derelerde ve akvaryumlarda yaşar. Organik madde bakımından zengin durgun suları tercih eder.',
+      ozellik: 'Vücudunu kaplayan binlerce sil sayesinde hem hızlı yüzer hem de besinleri ağız bölgesine yönlendirir. İki çekirdeğe (makro ve mikro) sahiptir.',
+      ilgincGercek: 'Paramesyum, konjugasyon sırasında başka bir paramesyumla genetik materyal değiş tokuşu yapar. Bu "eşeyli üreme" benzeri süreç, genetik çeşitliliği artırır.'
+    },
     organelles: [
       { id: 'para-pellikula', name: 'Pellikula', color: COLORS.ANIMAL_MEM, description: 'Hücreye şekil veren dayanıklı dış örtüdür.', funFact: 'Paramesyum bu sayede esnektir ama terlik şeklini korur.', patterns: ['pellikula'] },
       { id: 'para-siller', name: 'Siller', color: COLORS.SPERM_TAIL, description: 'Hareket etmesini ve besinleri ağız bölgesine yönlendirmesini sağlar.', funFact: 'Sillerini kürek gibi kullanarak çok hızlı yüzebilir.', patterns: ['sil', 'siller', 'cilia'] },
@@ -215,6 +269,12 @@ export const CELLS = [
     name: 'Virüs (Bakteriyofaj)',
     subtitle: 'Hücresel Olmayan Varlık',
     modelFile: 'optimized_virus.glb',
+    cellInfo: {
+      genel: 'Virüsler hücresel yapıya sahip olmayan, sadece bir konak hücre içinde çoğalabilen zorunlu hücre içi parazitlerdir. Bakteriyofajlar ise sadece bakterilere saldıran virüs türüdür.',
+      habitat: 'Her yerde bulunabilirler. Okyanuslardan toprak altına kadar bakteri bulunan her ortamda bakteriyofajlara rastlanır.',
+      ozellik: 'Canlı ve cansız arasında köprü gibidir. Hücre dışında kristalleşebilir, canlılık özelliği göstermez. Konak hücreye tutunarak genetik materyalini enjekte eder.',
+      ilgincGercek: 'Dünya üzerindeki en bol biyolojik varlık virüslerdir. Tahminlere göre yaklaşık 10³¹ (10 nonilyon) virüs partikülü mevcuttur — bu rakam evrendeki yıldız sayısından bile fazladır.'
+    },
     organelles: [
       { id: 'vir-kapsit', name: 'Baş (Kapsit)', color: COLORS.VIRUS_CAPSID, opacity: 0.6, description: 'Genetik materyali koruyan protein kılıftır.', funFact: 'Her virüs türünün kendine özgü bir kapsit şekli vardır.', patterns: ['bas_kapsit', 'baslik_cikintilari'] },
       { id: 'vir-genom', name: 'Genetik Materyal (DNA/RNA)', color: COLORS.VIRUS_GENOME, description: 'Virüsün çoğalması için gerekli bilgiyi taşır.', funFact: 'Virüsler ya sadece DNA ya da sadece RNA içerirler, ikisini birden bulundurmazlar.', patterns: ['dna', 'rna'] },
