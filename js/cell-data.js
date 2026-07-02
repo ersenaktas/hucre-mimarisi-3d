@@ -287,13 +287,62 @@ export const CELLS = [
 
 export const COMPARISON_DATA = {
   prokaryot_okaryot: {
-    title: 'Prokaryot ve Ökaryot Hücre Karşılaştırması',
+    title: 'Prokaryot ve Ökaryot Karşılaştırması',
+    tabLabel: 'Prokaryot vs Ökaryot',
     features: [
-      { feature: 'Çekirdek', prokaryot: 'Yok (Nükleoid)', okaryot: 'Var', icon: '🧫' },
+      { feature: 'Çekirdek', prokaryot: 'Yok (Nükleoid)', okaryot: 'Var (Zarla çevrili)', icon: '🧫' },
       { feature: 'DNA Yapısı', prokaryot: 'Halkasal', okaryot: 'Doğrusal', icon: '🧬' },
-      { feature: 'Zarlı Organel', prokaryot: 'Yok', okaryot: 'Var', icon: '🔬' },
-      { feature: 'Ribozom', prokaryot: '70S', okaryot: '80S', icon: '⚙️' },
-      { feature: 'Hücre Boyutu', prokaryot: '1-10 µm', okaryot: '10-100 µm', icon: '📏' }
+      { feature: 'Zarlı Organel', prokaryot: 'Yok', okaryot: 'Var (Mitokondri, ER, Golgi vb.)', icon: '🔬' },
+      { feature: 'Ribozom', prokaryot: '70S (küçük)', okaryot: '80S (büyük)', icon: '⚙️' },
+      { feature: 'Hücre Boyutu', prokaryot: '1-10 µm', okaryot: '10-100 µm', icon: '📏' },
+      { feature: 'Hücre Duvarı', prokaryot: 'Peptidoglikan', okaryot: 'Selüloz / Kitin / Yok', icon: '🧱' },
+      { feature: 'Üreme', prokaryot: 'İkiye bölünme', okaryot: 'Mitoz / Mayoz', icon: '🔄' },
+      { feature: 'Örnek', prokaryot: 'Bakteri, Arke', okaryot: 'Bitki, Hayvan, Mantar', icon: '🏷️' }
+    ]
+  },
+  bitki_hayvan: {
+    title: 'Bitki ve Hayvan Hücresi Karşılaştırması',
+    tabLabel: 'Bitki vs Hayvan',
+    features: [
+      { feature: 'Hücre Çeperi', bitki: '✅ Var (Selüloz)', hayvan: '❌ Yok', icon: '🧱' },
+      { feature: 'Kloroplast', bitki: '✅ Var (Fotosentez)', hayvan: '❌ Yok', icon: '🌿' },
+      { feature: 'Merkezi Koful', bitki: '✅ Büyük, tek', hayvan: '❌ Küçük, çok sayıda', icon: '💧' },
+      { feature: 'Sentrozom', bitki: '❌ Yok', hayvan: '✅ Var', icon: '🎯' },
+      { feature: 'Lizozom', bitki: '❌ Genellikle yok', hayvan: '✅ Var', icon: '🧹' },
+      { feature: 'Hücre Şekli', bitki: 'Köşeli (sabit)', hayvan: 'Yuvarlak (değişken)', icon: '🔷' },
+      { feature: 'Beslenme', bitki: 'Ototrof (üretici)', hayvan: 'Heterotrof (tüketici)', icon: '🍽️' },
+      { feature: 'Enerji Kaynağı', bitki: 'Güneş ışığı + CO₂', hayvan: 'Organik besinler', icon: '⚡' },
+      { feature: 'Depo Maddesi', bitki: 'Nişasta', hayvan: 'Glikojen', icon: '📦' }
+    ]
+  },
+  tek_hucreliler: {
+    title: 'Tek Hücreli Canlılar Karşılaştırması',
+    tabLabel: 'Amip vs Paramesyum vs Öglena',
+    features: [
+      { feature: 'Hareket', amip: 'Yalancı ayak', paramesyum: 'Sil (tüycük)', oglena: 'Kamçı', icon: '🏃' },
+      { feature: 'Beslenme', amip: 'Heterotrof (fagositoz)', paramesyum: 'Heterotrof (siller ile)', oglena: 'Hem ototrof hem heterotrof', icon: '🍽️' },
+      { feature: 'Hücre Şekli', amip: 'Değişken (amorf)', paramesyum: 'Sabit (terlik)', oglena: 'Yarı esnek (iğ)', icon: '🔷' },
+      { feature: 'Çekirdek', amip: '1 adet', paramesyum: '2 adet (makro + mikro)', oglena: '1 adet', icon: '🧫' },
+      { feature: 'Kloroplast', amip: '❌ Yok', paramesyum: '❌ Yok', oglena: '✅ Var', icon: '🌿' },
+      { feature: 'Göz Lekesi', amip: '❌ Yok', paramesyum: '❌ Yok', oglena: '✅ Var (Stigma)', icon: '👁️' },
+      { feature: 'Kontraktil Koful', amip: '✅ Var', paramesyum: '✅ Var (2 adet)', oglena: '✅ Var', icon: '💧' },
+      { feature: 'Savunma', amip: 'Kist oluşturma', paramesyum: 'Trikosist fırlatma', oglena: 'Kist oluşturma', icon: '🛡️' },
+      { feature: 'Yaşam Alanı', amip: 'Tatlı su, nemli toprak', paramesyum: 'Tatlı su', oglena: 'Tatlı su, gölet', icon: '🌍' }
+    ]
+  },
+  virus_bakteri: {
+    title: 'Virüs ve Bakteri Karşılaştırması',
+    tabLabel: 'Virüs vs Bakteri',
+    features: [
+      { feature: 'Canlılık', virus: '❌ Canlı sayılmaz', bakteri: '✅ Canlı (prokaryot)', icon: '❓' },
+      { feature: 'Hücre Yapısı', virus: 'Hücresel değil', bakteri: 'Hücresel', icon: '🔬' },
+      { feature: 'Çoğalma', virus: 'Sadece konak hücrede', bakteri: 'Bağımsız (ikiye bölünme)', icon: '🔄' },
+      { feature: 'Genetik Materyal', virus: 'DNA veya RNA (biri)', bakteri: 'DNA (halkasal)', icon: '🧬' },
+      { feature: 'Boyut', virus: '20-300 nm', bakteri: '1-10 µm', icon: '📏' },
+      { feature: 'Ribozom', virus: '❌ Yok', bakteri: '✅ Var (70S)', icon: '⚙️' },
+      { feature: 'Metabolizma', virus: '❌ Yok', bakteri: '✅ Var', icon: '🔥' },
+      { feature: 'Antibiyotik Etkisi', virus: '❌ Etkilemez', bakteri: '✅ Etkiler', icon: '💊' },
+      { feature: 'Örnek', virus: 'Bakteriyofaj, COVID-19', bakteri: 'E. coli, Streptokok', icon: '🏷️' }
     ]
   }
 };

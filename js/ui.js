@@ -1,4 +1,4 @@
-import { COMPARISON_DATA, GROUP_DETAILS } from './cell-data.js?v=5';
+import { COMPARISON_DATA, GROUP_DETAILS } from './cell-data.js?v=13';
 
 class UIManager {
   constructor(app) {
@@ -62,40 +62,78 @@ class UIManager {
   }
 
   showComparisonModal() {
-    console.log("Karşılaştırma modalı tetiklendi!");
-    if (!this.compareModal || !this.compareModalBody) {
-        console.error("Modal elementleri bulunamadı!");
-        return;
-    }
+    if (!this.compareModal || !this.compareModalBody) return;
     
     const data = COMPARISON_DATA;
-    let html = '';
-    for (const key in data) {
-            const comp = data[key];
-            const keys = Object.keys(comp.features[0]).filter(k => k !== 'feature' && k !== 'icon');
-            
-            html += `<h3 style="margin-top: 1rem; color: var(--text-dark);">${comp.title}</h3>
-                     <table class="compare-table" style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
-                     <thead>
-                        <tr style="background: var(--bg-light); text-align: left;">
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Özellik</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd; text-transform: capitalize;">${keys[0]}</th>
-                            <th style="padding: 10px; border-bottom: 2px solid #ddd; text-transform: capitalize;">${keys[1]}</th>
-                        </tr>
-                     </thead>
-                     <tbody>`;
-                     
-            comp.features.forEach(f => {
-                html += `<tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 10px;"><strong>${f.feature}</strong></td>
-                            <td style="padding: 10px;">${f[keys[0]]}</td>
-                            <td style="padding: 10px;">${f[keys[1]]}</td>
-                         </tr>`;
-            });
-            html += `</tbody></table>`;
-        }
-        this.compareModalBody.innerHTML = html;
-        this.compareModal.classList.remove('hidden');
+    const keys = Object.keys(data);
+    
+    // Sekme navigasyonu oluştur
+    let tabsHtml = '<div class="compare-tabs">';
+    keys.forEach((key, i) => {
+      tabsHtml += `<button class="compare-tab ${i === 0 ? 'active' : ''}" data-tab="${key}">${data[key].tabLabel || data[key].title}</button>`;
+    });
+    tabsHtml += '</div>';
+    
+    // Tablo içerikleri
+    let contentHtml = '<div class="compare-tab-contents" style="padding: 20px; overflow-y: auto; max-height: calc(80vh - 140px);">';
+    keys.forEach((key, i) => {
+      const comp = data[key];
+      const colKeys = Object.keys(comp.features[0]).filter(k => k !== 'feature' && k !== 'icon');
+      
+      contentHtml += `<div class="compare-tab-panel" data-panel="${key}" style="${i !== 0 ? 'display:none;' : ''}">
+        <h3 style="margin-bottom: 16px; color: var(--text-main); font-size: 1.1rem;">${comp.title}</h3>
+        <div class="compare-table-wrapper">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="feature-name">Özellik</th>
+                ${colKeys.map(k => `<th style="text-transform: capitalize;">${k}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${comp.features.map(f => `
+                <tr>
+                  <td style="text-align:center; font-size:1.1rem; width:36px;">${f.icon || ''}</td>
+                  <td class="feature-name">${f.feature}</td>
+                  ${colKeys.map(k => `<td>${f[k]}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+    });
+    contentHtml += '</div>';
+    
+    // Modal yapısını güncelle - sekmeleri modal-header'dan sonra ekle
+    this.compareModalBody.innerHTML = contentHtml;
+    
+    // Sekmeleri modal-header'dan sonra ekle
+    const existingTabs = this.compareModal.querySelector('.compare-tabs');
+    if (existingTabs) existingTabs.remove();
+    const modalContent = this.compareModal.querySelector('.modal-content');
+    const modalBody = this.compareModal.querySelector('.modal-body');
+    const tabsContainer = document.createElement('div');
+    tabsContainer.innerHTML = tabsHtml;
+    modalContent.insertBefore(tabsContainer.firstElementChild, modalBody);
+    
+    // Sekme tıklama olayları
+    this.compareModal.querySelectorAll('.compare-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Aktif sekmeyi güncelle
+        this.compareModal.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Panelleri göster/gizle
+        const targetPanel = tab.dataset.tab;
+        this.compareModal.querySelectorAll('.compare-tab-panel').forEach(p => {
+          p.style.display = p.dataset.panel === targetPanel ? '' : 'none';
+        });
+      });
+    });
+    
+    this.compareModal.classList.remove('hidden');
   }
 
   renderCellList(cells) {
